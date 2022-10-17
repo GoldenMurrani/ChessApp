@@ -45,7 +45,7 @@ public class Chess {
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                Paint squarePaint = (((i*3)+j)%2)==0 ? grayPaint : greenPaint;
+                Paint squarePaint = ((i+j)%2)==0 ? grayPaint : greenPaint;
                 canvas.drawRect(marginX + (chessSize*j)/8.0f, marginY + (chessSize*i)/8.0f,
                         marginX + (chessSize*(j+1))/8.0f, marginY + (chessSize*(i+1))/8.0f,
                         squarePaint);
