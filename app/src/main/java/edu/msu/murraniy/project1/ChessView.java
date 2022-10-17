@@ -31,15 +31,13 @@ public class ChessView extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        //chess initialization to be implemented
-        //chess = new Chess;
+        chess = new Chess(getContext(), this);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        //chess drawing to be implemented
-        //chess.draw(canvas);
+        chess.draw(canvas);
     }
 }
