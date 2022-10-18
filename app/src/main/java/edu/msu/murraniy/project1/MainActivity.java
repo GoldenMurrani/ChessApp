@@ -16,6 +16,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText startpopup_playerone, startpopup_playertwo;
     private Button startpopup_start, startpopup_cancel;
 
+    private String playerOneN = "Player 1";
+    private String playerTwoN = "Player 2";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         startpopup_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                playerOneN = startpopup_playerone.getText().toString();
+                playerTwoN = startpopup_playertwo.getText().toString();
                 onStartMatch(v);
             }
         });
