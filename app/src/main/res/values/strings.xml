@@ -3,4 +3,6 @@
     <string name="start">Start Match</string>
     <string name="green_chessboard">Green Chessboard</string>
     <string name="game_title">Chess: The Game for Smart People</string>
+    <string name="done">Done</string>
+    <string name="resign">Resign</string>
 </resources>
