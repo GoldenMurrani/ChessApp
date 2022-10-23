@@ -3,6 +3,7 @@ package edu.msu.murraniy.project1;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -28,6 +29,11 @@ public class ChessView extends View {
     public ChessView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return chess.onTouchEvent(this, event);
     }
 
     private void init(AttributeSet attrs, int defStyle) {

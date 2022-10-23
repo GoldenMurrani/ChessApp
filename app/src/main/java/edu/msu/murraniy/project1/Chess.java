@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.MotionEvent;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -31,6 +33,20 @@ public class Chess {
     private Team turn;
     // Collection of chess pieces
     private ArrayList<ChessPiece> pieces = new ArrayList<>();
+    /**
+     * This variable is set to a piece we are dragging. If
+     * we are not dragging, the variable is null.
+     */
+    private ChessPiece dragging = null;
+    /**
+     * Most recent relative X touch when dragging
+     */
+    private float lastRelX;
+
+    /**
+     * Most recent relative Y touch when dragging
+     */
+    private float lastRelY;
 
     public Chess(Context context, ChessView view) {
         parentView = view;
@@ -121,5 +137,71 @@ public class Chess {
             piece.setX(((i%8)*2+1)/16.0f);
             piece.setY((offset_team+offset_row+1)/16.0f);
         }
+    }
+
+    /**
+     * Handle a touch event from the view.
+     * @param view The view that is the source of the touch
+     * @param event The motion event describing the touch
+     * @return true if the touch is handled.
+     */
+    public boolean onTouchEvent(View view, MotionEvent event) {
+        //
+        // Convert an x,y location to a relative location in the
+        // puzzle.
+        //
+
+        float relX = (event.getX() - marginX) / chessSize;
+        float relY = (event.getY() - marginY) / chessSize;
+
+        switch (event.getActionMasked()) {
+
+            case MotionEvent.ACTION_DOWN:
+                return onTouched(relX, relY);
+
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                if(dragging != null) {
+                    dragging = null;
+                    return true;
+                }
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                // If we are dragging, move the piece and force a redraw
+                if(dragging != null) {
+                    dragging.move(relX - lastRelX, relY - lastRelY);
+                    lastRelX = relX;
+                    lastRelY = relY;
+                    view.invalidate();
+                    return true;
+                }
+                break;
+        }
+
+        return false;
+    }
+
+    /**
+     * Handle a touch message. This is when we get an initial touch
+     * @param x x location for the touch, relative to the puzzle - 0 to 1 over the puzzle
+     * @param y y location for the touch, relative to the puzzle - 0 to 1 over the puzzle
+     * @return true if the touch is handled
+     */
+    private boolean onTouched(float x, float y) {
+
+        // Check each piece to see if it has been hit
+        // We do this in reverse order so we find the pieces in front
+        for(int p=pieces.size()-1; p>=0;  p--) {
+            if(pieces.get(p).hit(x, y, chessSize, scaleFactor)) {
+                // We hit a piece!
+                dragging = pieces.get(p);
+                lastRelX = x;
+                lastRelY = y;
+                return true;
+            }
+        }
+
+        return false;
     }
 }

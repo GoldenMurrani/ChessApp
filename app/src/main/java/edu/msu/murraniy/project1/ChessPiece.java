@@ -51,4 +51,41 @@ public class ChessPiece{
 	public float getY() { return y; }
 	public void setY(float y) { this.y = y; }
 
+	/**
+	 * Test to see if we have touched a puzzle piece
+	 * @param testX X location as a normalized coordinate (0 to 1)
+	 * @param testY Y location as a normalized coordinate (0 to 1)
+	 * @param chessSize the size of the puzzle in pixels
+	 * @param scaleFactor the amount to scale a piece by
+	 * @return true if we hit the piece
+	 */
+	public boolean hit(float testX, float testY,
+					   int chessSize, float scaleFactor) {
+
+		// Make relative to the location and size to the piece size
+		int pX = (int)((testX - x) * chessSize / scaleFactor) +
+				piece.getWidth() / 2;
+		int pY = (int)((testY - y) * chessSize / scaleFactor) +
+				piece.getHeight() / 2;
+
+		if(pX < 0 || pX >= piece.getWidth() ||
+				pY < 0 || pY >= piece.getHeight()) {
+			return false;
+		}
+
+		// We are within the rectangle of the piece.
+		// Are we touching actual picture?
+		return (piece.getPixel(pX, pY) & 0xff000000) != 0;
+	}
+
+	/**
+	 * Move the puzzle piece by dx, dy
+	 * @param dx x amount to move
+	 * @param dy y amount to move
+	 */
+	public void move(float dx, float dy) {
+		x += dx;
+		y += dy;
+	}
+
 }
