@@ -16,6 +16,16 @@ public class ChessView extends View {
      */
     private Chess chess;
 
+    /**
+     * Player 1 Name
+     */
+    private String playerOneName;
+
+    /**
+     * Player 2 Name
+     */
+    private String playerTwoName;
+
     public ChessView(Context context) {
         super(context);
         init(null, 0);
@@ -46,4 +56,13 @@ public class ChessView extends View {
 
         chess.draw(canvas);
     }
+
+    public void setPlayerTwoName(String playerTwoName) {
+        this.playerTwoName = playerTwoName;
+    }
+
+    public void setPlayerOneName(String playerOneName) {
+        this.playerOneName = playerOneName;
+    }
+
 }
