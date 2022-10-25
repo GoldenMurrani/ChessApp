@@ -8,36 +8,48 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="20dp">
 
         <Button
             android:id="@+id/button3"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="@string/done" />
+            android:text="@string/done"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/button6"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="@string/resign" />
-
+            android:text="@string/resign"
+            style="?android:attr/buttonBarButtonStyle" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
+
+        <TextView
+            android:id="@+id/playerText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:text="Current Turn"
+            />
+
+    </LinearLayout>
 
     <view
         android:id="@+id/chessView"
         class="edu.msu.murraniy.project1.ChessView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
 </LinearLayout>

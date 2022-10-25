@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -96,7 +95,6 @@ public class Chess {
         pieces.add(new ChessPiece(context, R.drawable.rook_white, Team.WHITE));
 
         startingPlacement();
-
     }
 
     public void draw(Canvas canvas) {
@@ -206,5 +204,4 @@ public class Chess {
 
         return false;
     }
-
 }

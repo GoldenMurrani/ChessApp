@@ -4,7 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -64,7 +63,11 @@ public class MainActivity extends AppCompatActivity {
     public void onStartMatch(View view) {
         Intent intent = new Intent(this, ChessActivity.class);
 
+        Bundle bundle_names = new Bundle();
+        bundle_names.putString("player_name_1", playerOneN);
+        bundle_names.putString("player_name_2", playerTwoN);
 
+        intent.putExtras(bundle_names);
 
         startActivity(intent);
     }
