@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Project 1</string>
+    <string name="app_name">Chess</string>
     <string name="start">Start Match</string>
     <string name="green_chessboard">Green Chessboard</string>
     <string name="game_title">Chess: The Game for Smart People</string>
