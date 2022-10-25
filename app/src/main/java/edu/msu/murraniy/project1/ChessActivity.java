@@ -21,16 +21,7 @@ public class ChessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chess);
 
-        Bundle temp = getIntent().getExtras();
-        playerOnen = temp.getString("player_name_1");
-        playerTwon = temp.getString("player_name_2");
 
-        ChessView view = (ChessView)this.findViewById(R.id.chessView);
-        view.setPlayerOneName(playerOnen);
-        view.setPlayerTwoName(playerTwon);
-
-        TextView tv1 = (TextView)findViewById(R.id.playerText);
-        tv1.setText(playerOnen + "'s Turn");
 
     }
 

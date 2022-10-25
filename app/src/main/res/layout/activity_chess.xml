@@ -32,20 +32,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="75dp">
-
-        <TextView
-            android:id="@+id/playerText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="30sp"
-            android:gravity="center"
-            android:text="Current Turn"
-            />
-
-    </LinearLayout>
 
     <view
         android:id="@+id/chessView"
