@@ -17,6 +17,8 @@ public class ChessPiece{
 	private Chess.Team team;
 	// The id of this chess piece
 	private final int id;
+	// Snap piece into place if within this distance
+	final static float SNAP_DISTANCE = 0.05f;
 
 
 	public ChessPiece(Context context, int id, Chess.Team team) {

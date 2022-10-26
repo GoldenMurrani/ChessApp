@@ -160,6 +160,17 @@ public class Chess {
                 return onTouched(relX, relY);
 
             case MotionEvent.ACTION_UP:
+                if(dragging != null) {
+                    for(ChessPiece piece : pieces) {
+                        if(dragging.getTeam() != piece.getTeam()) {
+                            if (Math.abs(dragging.getX() - piece.getX()) <= 0.05f && Math.abs(dragging.getY() - piece.getY()) <= 0.05f ) {
+                                pieces.remove(piece);
+                                view.invalidate();
+                                break;
+                            }
+                        }
+                    }
+                }
             case MotionEvent.ACTION_CANCEL:
                 if(dragging != null) {
                     dragging = null;
