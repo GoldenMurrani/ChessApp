@@ -3,7 +3,10 @@ package edu.msu.murraniy.project1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -23,7 +26,7 @@ public class ChessActivity extends AppCompatActivity {
     /**
      * ChessView
      */
-    private ChessView view;
+    private ChessView chessView;
 
     private int playerTurn = 1;
 
@@ -40,8 +43,8 @@ public class ChessActivity extends AppCompatActivity {
         playerOnen = temp.getString("player_name_1");
         playerTwon = temp.getString("player_name_2");
 
-        view = (ChessView)this.findViewById(R.id.chessView);
-        view.setActivity(this);
+        chessView = (ChessView)this.findViewById(R.id.chessView);
+        chessView.setActivity(this);
 
         tv1 = (TextView)findViewById(R.id.playerText);
 
@@ -74,6 +77,58 @@ public class ChessActivity extends AppCompatActivity {
     }
 
     public void onDone(View view){
+          //uncomment to make the done button bring up promotion dialog for debugging
+//        PromoteDlg dlg = new PromoteDlg();
+//        dlg.show(getSupportFragmentManager(), "promotion");
         changeTurn();
+    }
+
+    /**
+     * An adapter so that list boxes can display a list of filenames from
+     * the cloud server.
+     */
+    public static class CatalogAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return 4;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            if(view == null) {
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.promotion_item, viewGroup, false);
+            }
+
+            TextView tv = (TextView)view.findViewById(R.id.textItem);
+
+            switch(i){
+                case 0:
+                    tv.setText(R.string.queen);
+                    break;
+                case 1:
+                    tv.setText(R.string.rook);
+                    break;
+                case 2:
+                    tv.setText(R.string.knight);
+                    break;
+                case 3:
+                    tv.setText(R.string.bishop);
+                    break;
+            }
+
+
+            return view;
+        }
     }
 }

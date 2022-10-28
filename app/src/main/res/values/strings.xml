@@ -6,4 +6,9 @@
     <string name="done">Done</string>
     <string name="resign">Resign</string>
     <string name="turn_suffix">\'s Turn</string>
+    <string name="promote">Select a piece to promote to:</string>
+    <string name="queen">Queen</string>
+    <string name="rook">Rook</string>
+    <string name="knight">Knight</string>
+    <string name="bishop">Bishop</string>
 </resources>
