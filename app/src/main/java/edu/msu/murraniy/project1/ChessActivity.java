@@ -3,6 +3,7 @@ package edu.msu.murraniy.project1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -70,5 +71,9 @@ public class ChessActivity extends AppCompatActivity {
         }
 
         tv1.setText(messageText);
+    }
+
+    public void onDone(View view){
+        changeTurn();
     }
 }

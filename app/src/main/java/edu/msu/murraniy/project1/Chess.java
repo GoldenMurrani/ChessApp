@@ -165,7 +165,7 @@ public class Chess {
 
             case MotionEvent.ACTION_UP:
                 if(dragging != null) {
-                    parentView.getActivity().changeTurn();
+//                    parentView.getActivity().changeTurn();
                     for(ChessPiece piece : pieces) {
                         if(dragging.getTeam() != piece.getTeam()) {
                             if (Math.abs(dragging.getX() - piece.getX()) <= 0.05f && Math.abs(dragging.getY() - piece.getY()) <= 0.05f ) {
