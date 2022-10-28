@@ -1,5 +1,8 @@
 package edu.msu.murraniy.project1;
 
+import static java.security.AccessController.getContext;
+
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -47,6 +50,7 @@ public class Chess {
      * Most recent relative Y touch when dragging
      */
     private float lastRelY;
+
 
     public Chess(Context context, ChessView view) {
         parentView = view;
@@ -161,6 +165,7 @@ public class Chess {
 
             case MotionEvent.ACTION_UP:
                 if(dragging != null) {
+                    parentView.getActivity().changeTurn();
                     for(ChessPiece piece : pieces) {
                         if(dragging.getTeam() != piece.getTeam()) {
                             if (Math.abs(dragging.getX() - piece.getX()) <= 0.05f && Math.abs(dragging.getY() - piece.getY()) <= 0.05f ) {

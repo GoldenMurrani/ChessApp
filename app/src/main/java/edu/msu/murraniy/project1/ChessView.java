@@ -1,6 +1,8 @@
 package edu.msu.murraniy.project1;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -15,6 +17,8 @@ public class ChessView extends View {
      * The Chess game
      */
     private Chess chess;
+
+    private ChessActivity myActivity;
 
     public ChessView(Context context) {
         super(context);
@@ -45,5 +49,13 @@ public class ChessView extends View {
         super.onDraw(canvas);
 
         chess.draw(canvas);
+    }
+
+    public void setActivity(ChessActivity a){
+        myActivity = a;
+    }
+
+    public ChessActivity getActivity(){
+        return myActivity;
     }
 }
