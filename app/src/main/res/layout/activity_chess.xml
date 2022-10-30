@@ -28,7 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="@string/resign"
-            style="?android:attr/buttonBarButtonStyle" />
+            style="?android:attr/buttonBarButtonStyle"
+            android:onClick="onResign"/>
 
     </LinearLayout>
 

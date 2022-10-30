@@ -11,4 +11,10 @@
     <string name="rook">Rook</string>
     <string name="knight">Knight</string>
     <string name="bishop">Bishop</string>
+    <string name="winnerLogo">Chess Winner Logo</string>
+    <string name="playAgainb">Play Again</string>
+    <string name="winnerText">Winner</string>
+    <string name="loserText">Loser</string>
+    <string name="winText">is the Winner! We declare them a true Master of Chess</string>
+    <string name="loseText">is the loser.</string>
 </resources>

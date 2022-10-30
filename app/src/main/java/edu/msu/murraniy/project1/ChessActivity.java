@@ -2,6 +2,7 @@ package edu.msu.murraniy.project1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +82,20 @@ public class ChessActivity extends AppCompatActivity {
 //        PromoteDlg dlg = new PromoteDlg();
 //        dlg.show(getSupportFragmentManager(), "promotion");
         changeTurn();
+    }
+
+    public void onResign(View view){
+        Intent intent = new Intent(this, WinnerActivity.class);
+
+        Bundle bundle_info = new Bundle();
+        bundle_info.putString("player_1", playerOnen);
+        bundle_info.putString("player_2", playerTwon);
+        bundle_info.putInt("current_turn", playerTurn);
+        bundle_info.putBoolean("resigned", true);
+
+        intent.putExtras(bundle_info);
+
+        startActivity(intent);
     }
 
     /**
