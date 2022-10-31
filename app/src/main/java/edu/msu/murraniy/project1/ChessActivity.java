@@ -82,6 +82,7 @@ public class ChessActivity extends AppCompatActivity {
 //        PromoteDlg dlg = new PromoteDlg();
 //        dlg.show(getSupportFragmentManager(), "promotion");
         changeTurn();
+        chessView.changeChessTurn();
     }
 
     public void onResign(View view){

@@ -15,15 +15,18 @@ public class ChessPiece{
 	private float y;
 	// Team of this chess piece
 	private Chess.Team team;
+	// The type of the chess piece
+	private Chess.Type type;
 	// The id of this chess piece
 	private final int id;
 	// Snap piece into place if within this distance
 	final static float SNAP_DISTANCE = 0.05f;
 
 
-	public ChessPiece(Context context, int id, Chess.Team team) {
+	public ChessPiece(Context context, int id, Chess.Team team, Chess.Type type) {
 		this.id = id;
 		this.team = team;
+		this.type = type;
 
 		piece = BitmapFactory.decodeResource(context.getResources(), id);
 	}

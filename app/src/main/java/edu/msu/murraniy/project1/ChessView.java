@@ -58,4 +58,13 @@ public class ChessView extends View {
     public ChessActivity getActivity(){
         return myActivity;
     }
+
+    public void changeChessTurn(){
+        if(chess.getTurn() == Chess.Team.WHITE){
+            chess.setTurn(Chess.Team.BLACK);
+        }else{
+            chess.setTurn(Chess.Team.WHITE);
+        }
+    }
+
 }

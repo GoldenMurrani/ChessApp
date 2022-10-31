@@ -16,6 +16,9 @@ public class Chess {
     // PUBLIC enumeration to represent teams
     public enum Team { WHITE, BLACK }
 
+    // PUBLIC enumeration to represent piece types
+    public enum Type { ROOK, KNIGHT, BISHOP, QUEEN, KING, PAWN}
+
     // The parent ChessView of this game Chess
     private ChessView parentView;
     // The greenish paint of the board
@@ -51,6 +54,16 @@ public class Chess {
      */
     private float lastRelY;
 
+    /**
+     * Count of White pieces on board
+     */
+    private int whitePieces = 16;
+
+    /**
+     * Count of black pieces on board
+     */
+    private int blackPieces = 16;
+
 
     public Chess(Context context, ChessView view) {
         parentView = view;
@@ -65,38 +78,38 @@ public class Chess {
         turn = Team.WHITE;
 
         // Initialize the chess pieces
-        pieces.add(new ChessPiece(context, R.drawable.rook_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.knight_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.bishop_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.queen_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.king_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.bishop_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.knight_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.rook_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.rook_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.knight_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.bishop_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.queen_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.king_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.bishop_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.knight_white, Team.WHITE));
-        pieces.add(new ChessPiece(context, R.drawable.rook_white, Team.WHITE));
+        pieces.add(new ChessPiece(context, R.drawable.rook_black, Team.BLACK, Type.ROOK));
+        pieces.add(new ChessPiece(context, R.drawable.knight_black, Team.BLACK, Type.KNIGHT));
+        pieces.add(new ChessPiece(context, R.drawable.bishop_black, Team.BLACK, Type.BISHOP));
+        pieces.add(new ChessPiece(context, R.drawable.queen_black, Team.BLACK, Type.QUEEN));
+        pieces.add(new ChessPiece(context, R.drawable.king_black, Team.BLACK, Type.KING));
+        pieces.add(new ChessPiece(context, R.drawable.bishop_black, Team.BLACK, Type.BISHOP));
+        pieces.add(new ChessPiece(context, R.drawable.knight_black, Team.BLACK, Type.KNIGHT));
+        pieces.add(new ChessPiece(context, R.drawable.rook_black, Team.BLACK, Type.ROOK));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
+        pieces.add(new ChessPiece(context, R.drawable.rook_white, Team.WHITE, Type.ROOK));
+        pieces.add(new ChessPiece(context, R.drawable.knight_white, Team.WHITE, Type.KNIGHT));
+        pieces.add(new ChessPiece(context, R.drawable.bishop_white, Team.WHITE, Type.BISHOP));
+        pieces.add(new ChessPiece(context, R.drawable.queen_white, Team.WHITE, Type.QUEEN));
+        pieces.add(new ChessPiece(context, R.drawable.king_white, Team.WHITE, Type.KING));
+        pieces.add(new ChessPiece(context, R.drawable.bishop_white, Team.WHITE, Type.BISHOP));
+        pieces.add(new ChessPiece(context, R.drawable.knight_white, Team.WHITE, Type.KNIGHT));
+        pieces.add(new ChessPiece(context, R.drawable.rook_white, Team.WHITE, Type.ROOK));
 
         startingPlacement();
     }
@@ -169,6 +182,11 @@ public class Chess {
                     for(ChessPiece piece : pieces) {
                         if(dragging.getTeam() != piece.getTeam()) {
                             if (Math.abs(dragging.getX() - piece.getX()) <= 0.05f && Math.abs(dragging.getY() - piece.getY()) <= 0.05f ) {
+                                if(piece.getTeam() == Team.WHITE){
+                                    whitePieces -= 1;
+                                }else{
+                                    blackPieces -= 1;
+                                }
                                 pieces.remove(piece);
                                 view.invalidate();
                                 break;
@@ -185,7 +203,7 @@ public class Chess {
 
             case MotionEvent.ACTION_MOVE:
                 // If we are dragging, move the piece and force a redraw
-                if(dragging != null) {
+                if(dragging != null && dragging.getTeam() == turn) {
                     dragging.move(relX - lastRelX, relY - lastRelY);
                     lastRelX = relX;
                     lastRelY = relY;
@@ -220,4 +238,13 @@ public class Chess {
 
         return false;
     }
+
+    public Team getTurn() {
+        return turn;
+    }
+
+    public void setTurn(Team turn) {
+        this.turn = turn;
+    }
+
 }
