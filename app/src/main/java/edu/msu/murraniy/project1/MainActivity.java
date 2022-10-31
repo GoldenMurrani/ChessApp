@@ -48,6 +48,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 playerOneN = startpopup_playerone.getText().toString();
                 playerTwoN = startpopup_playertwo.getText().toString();
+
+                if(playerOneN.matches("")){
+                    playerOneN = "Player 1";
+                }
+                if(playerTwoN.matches("")){
+                    playerTwoN = "Player 2";
+                }
+
                 onStartMatch(v);
             }
         });
