@@ -69,7 +69,13 @@ public class WinnerActivity extends AppCompatActivity {
             }
 
         }else{
-
+            if(currentTurn == 1){
+                winMessage = player_1 + " " + getString(R.string.winText);
+                loseMessage = player_2 + " " + getString(R.string.loseText);
+            }else{
+                winMessage = player_2 + " " + getString(R.string.winText);
+                loseMessage = player_1 + " " + getString(R.string.loseText);
+            }
         }
 
         winnerText.setText(winMessage);

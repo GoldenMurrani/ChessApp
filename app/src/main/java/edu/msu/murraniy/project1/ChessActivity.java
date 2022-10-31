@@ -78,9 +78,9 @@ public class ChessActivity extends AppCompatActivity {
     }
 
     public void onDone(View view){
-          //uncomment to make the done button bring up promotion dialog for debugging
-//        PromoteDlg dlg = new PromoteDlg();
-//        dlg.show(getSupportFragmentManager(), "promotion");
+        //uncomment to make the done button bring up promotion dialog for debugging
+        //PromoteDlg dlg = new PromoteDlg();
+        //dlg.show(getSupportFragmentManager(), "promotion");
         changeTurn();
         chessView.changeChessTurn();
     }
@@ -93,6 +93,20 @@ public class ChessActivity extends AppCompatActivity {
         bundle_info.putString("player_2", playerTwon);
         bundle_info.putInt("current_turn", playerTurn);
         bundle_info.putBoolean("resigned", true);
+
+        intent.putExtras(bundle_info);
+
+        startActivity(intent);
+    }
+
+    public void callGame(int playerNum){
+        Intent intent = new Intent(this, WinnerActivity.class);
+
+        Bundle bundle_info = new Bundle();
+        bundle_info.putString("player_1", playerOnen);
+        bundle_info.putString("player_2", playerTwon);
+        bundle_info.putInt("current_turn", playerTurn);
+        bundle_info.putBoolean("resigned", false);
 
         intent.putExtras(bundle_info);
 

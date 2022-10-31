@@ -59,12 +59,23 @@ public class ChessView extends View {
         return myActivity;
     }
 
+    /**
+     * Changes the turn in the Chess Class
+     */
     public void changeChessTurn(){
         if(chess.getTurn() == Chess.Team.WHITE){
             chess.setTurn(Chess.Team.BLACK);
         }else{
             chess.setTurn(Chess.Team.WHITE);
         }
+    }
+
+    /**
+     * Declares a winner based on player number passed to it from Chess Class
+     * @param playerNumber
+     */
+    public void declareWinner(int playerNumber){
+        myActivity.callGame(playerNumber);
     }
 
 }

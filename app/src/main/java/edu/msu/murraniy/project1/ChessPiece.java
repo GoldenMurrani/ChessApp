@@ -93,4 +93,11 @@ public class ChessPiece{
 		y += dy;
 	}
 
+	public Chess.Type getType() {
+		return type;
+	}
+	public void setType(Chess.Type type) {
+		this.type = type;
+	}
+
 }

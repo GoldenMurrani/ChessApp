@@ -182,13 +182,22 @@ public class Chess {
                     for(ChessPiece piece : pieces) {
                         if(dragging.getTeam() != piece.getTeam()) {
                             if (Math.abs(dragging.getX() - piece.getX()) <= 0.05f && Math.abs(dragging.getY() - piece.getY()) <= 0.05f ) {
+
                                 if(piece.getTeam() == Team.WHITE){
                                     whitePieces -= 1;
+                                    if(piece.getType() == Type.KING){
+                                        whitePieces = 0;
+                                    }
                                 }else{
                                     blackPieces -= 1;
+                                    if(piece.getType() == Type.KING){
+                                        blackPieces = 0;
+                                    }
                                 }
+
                                 pieces.remove(piece);
                                 view.invalidate();
+                                checkScore();
                                 break;
                             }
                         }
@@ -239,12 +248,32 @@ public class Chess {
         return false;
     }
 
+    /**
+     * Getter for the turn
+     * @return
+     */
     public Team getTurn() {
         return turn;
     }
 
+    /**
+     * Setter for the turn
+     * @param turn
+     */
     public void setTurn(Team turn) {
         this.turn = turn;
+    }
+
+    /**
+     * Checks the current score to declare a winner or not
+     */
+    public void checkScore(){
+        if(whitePieces == 0){
+            parentView.declareWinner(2);
+        }
+        if(blackPieces == 0){
+            parentView.declareWinner(1);
+        }
     }
 
 }
