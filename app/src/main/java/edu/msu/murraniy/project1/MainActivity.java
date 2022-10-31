@@ -5,11 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
+
+    /**
+     * bundle keys
+     */
+    private final static String NAMES = "MainActivity.Names";
+    private final static String POPUPACTIVE = "MainActivity.PopupActive";
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
@@ -18,14 +26,30 @@ public class MainActivity extends AppCompatActivity {
 
     private String playerOneN = "Player 1";
     private String playerTwoN = "Player 2";
+    /**
+     * popupActive used to display popup on changing device orientation.
+     */
+    boolean popupActive = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
         setContentView(R.layout.activity_main);
+
+        if(bundle != null) {
+            // We have saved state
+            loadInstanceState(bundle);
+        }
+
+        if (popupActive){
+            createNewContactDialog();
+            startpopup_playerone.setText(playerOneN);
+            startpopup_playertwo.setText(playerTwoN);
+        }
     }
 
     public void onStart(View view) {
+        popupActive = true;
         createNewContactDialog();
     }
 
@@ -63,7 +87,29 @@ public class MainActivity extends AppCompatActivity {
         startpopup_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                popupActive = false;
+                playerOneN = "";
+                playerTwoN = "";
                 dialog.dismiss();
+            }
+        });
+
+        startpopup_playertwo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Fires right as the text is being changed (even supplies the range of text)
+                playerOneN = startpopup_playerone.getText().toString();
+                playerTwoN = startpopup_playertwo.getText().toString();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // Fires right before text is changing
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
     }
@@ -78,5 +124,38 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtras(bundle_names);
 
         startActivity(intent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+
+        saveInstanceState(bundle);
+    }
+
+    /**
+     * Save the puzzle to a bundle
+     * @param bundle The bundle we save to
+     */
+    public void saveInstanceState(Bundle bundle) {
+        String [] names = new String[2];
+        names[0] = playerOneN;
+        names[1] = playerTwoN;
+        bundle.putStringArray(NAMES, names);
+
+        bundle.putBoolean(POPUPACTIVE, popupActive);
+    }
+
+    /**
+     * Read the player names from a bundle
+     * @param bundle The bundle we save to
+     */
+    public void loadInstanceState(Bundle bundle) {
+        String [] names = bundle.getStringArray(NAMES);
+        playerOneN = names[0];
+        playerTwoN = names[1];
+
+        popupActive = bundle.getBoolean(POPUPACTIVE);
+
     }
 }

@@ -32,6 +32,7 @@
         android:hint="Player 1 Name"
         android:textAlignment="center"
         android:gravity="center_horizontal"
+        android:saveEnabled="true"
         />
 
     <EditText
