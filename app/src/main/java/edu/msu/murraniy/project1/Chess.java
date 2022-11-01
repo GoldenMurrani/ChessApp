@@ -177,10 +177,11 @@ public class Chess {
                 return onTouched(relX, relY);
 
             case MotionEvent.ACTION_UP:
-                if(dragging != null) {
-//                    parentView.getActivity().changeTurn();
+                if(dragging != null && dragging.getTeam() == turn) {
+                    parentView.changeChessTurn();
                     for(ChessPiece piece : pieces) {
                         if(dragging.getTeam() != piece.getTeam()) {
+
                             if (Math.abs(dragging.getX() - piece.getX()) <= 0.05f && Math.abs(dragging.getY() - piece.getY()) <= 0.05f ) {
 
                                 if(piece.getTeam() == Team.WHITE){

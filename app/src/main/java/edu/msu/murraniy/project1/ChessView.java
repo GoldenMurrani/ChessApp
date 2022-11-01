@@ -68,6 +68,7 @@ public class ChessView extends View {
         }else{
             chess.setTurn(Chess.Team.WHITE);
         }
+        myActivity.changeTurn();
     }
 
     /**

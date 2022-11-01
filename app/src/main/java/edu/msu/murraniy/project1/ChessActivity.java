@@ -61,6 +61,7 @@ public class ChessActivity extends AppCompatActivity {
         }
 
         setPlayerTurnText(playerTurn);
+//        chessView.changeChessTurn();
     }
 
     private void setPlayerTurnText(int player){
@@ -81,7 +82,6 @@ public class ChessActivity extends AppCompatActivity {
         //uncomment to make the done button bring up promotion dialog for debugging
         //PromoteDlg dlg = new PromoteDlg();
         //dlg.show(getSupportFragmentManager(), "promotion");
-        changeTurn();
         chessView.changeChessTurn();
     }
 
