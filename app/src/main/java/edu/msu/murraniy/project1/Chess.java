@@ -64,6 +64,8 @@ public class Chess {
      */
     private int blackPieces = 16;
 
+    private ArrayList<BoardSquare> squares = new ArrayList<>();
+
 
     public Chess(Context context, ChessView view) {
         parentView = view;
@@ -126,17 +128,25 @@ public class Chess {
         marginX = (wid - chessSize) / 2;
         marginY = (hit - chessSize) / 2;
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                Paint squarePaint = ((i+j)%2)==0 ? grayPaint : greenPaint;
-                canvas.drawRect(marginX + (chessSize*j)/8.0f, marginY + (chessSize*i)/8.0f,
-                        marginX + (chessSize*(j+1))/8.0f, marginY + (chessSize*(i+1))/8.0f,
-                        squarePaint);
+        if(squares.size() <= 0) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    Paint squarePaint = ((i + j) % 2) == 0 ? grayPaint : greenPaint;
+                    squares.add(new BoardSquare(marginX + (chessSize * j) / 8.0f, marginY + (chessSize * i) / 8.0f,
+                            marginX + (chessSize * (j + 1)) / 8.0f, marginY + (chessSize * (i + 1)) / 8.0f,
+                            squarePaint));
+
+                }
             }
         }
 
         // Determine scaling for the chess pieces
         scaleFactor = (chessSize/8.0f) / pieces.get(0).getBitmap().getWidth();
+
+        // Draw each board square
+        for(BoardSquare square : squares) {
+            square.draw(canvas, scaleFactor);
+        }
 
         // Draw each of the chess pieces
         for (ChessPiece piece : pieces) {
@@ -179,6 +189,17 @@ public class Chess {
             case MotionEvent.ACTION_UP:
                 if(dragging != null && dragging.getTeam() == turn) {
                     parentView.changeChessTurn();
+
+
+                    for(BoardSquare square : squares) {
+                        if(Math.abs(dragging.getX() - Math.abs(square.getLeft()-67.5)/1000) <= 0.08f && Math.abs(dragging.getY() - Math.abs(square.getTop()-67.5)/1000) <= 0.08f) {
+                            dragging.setX(square.getLeft()/1050);
+                            dragging.setY((square.getTop())/1100);
+                            view.invalidate();
+                            break;
+                        }
+                    }
+
                     for(ChessPiece piece : pieces) {
                         if(dragging.getTeam() != piece.getTeam()) {
 
