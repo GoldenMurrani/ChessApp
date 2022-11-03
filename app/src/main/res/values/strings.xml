@@ -17,4 +17,5 @@
     <string name="loserText">Loser</string>
     <string name="winText">is the Winner! We declare them a true Master of Chess</string>
     <string name="loseText">is the loser.</string>
+    <string name="placeholder">placeholder</string>
 </resources>

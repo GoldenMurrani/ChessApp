@@ -25,31 +25,26 @@
         <Button
             android:id="@+id/button3"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="110dp"
-            android:layout_height="59dp"
-            android:layout_margin="20dp"
-            android:text="@string/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:onClick="onDone"
-            />
+            android:text="@string/done" />
 
         <Button
             android:id="@+id/button6"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="@string/resign"
             android:onClick="onResign"
-            />
+            android:text="@string/resign" />
 
         <TextView
             android:id="@+id/playerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
             android:gravity="center"
-            android:text="Current Turn"
-            />
+            android:text="@string/placeholder"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
