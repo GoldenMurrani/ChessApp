@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <ImageView
+        tools:ignore="contentDescription"
         android:id="@+id/startpopupicon"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -19,10 +20,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:autofillHints=""
         android:gravity="center"
-        android:hint="Player 1 Name"
+        android:hint="@string/p1name"
+        android:inputType="text"
         android:saveEnabled="true"
         android:textAlignment="center"
+        android:textColorHint="#78909C"
         android:textSize="24sp" />
 
     <EditText
@@ -31,10 +35,13 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:hint="Player 2 Name"
+        android:hint="@string/p2name"
+        android:inputType="text"
         android:saveEnabled="true"
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textColorHint="#78909C"
+        android:textSize="24sp"
+        android:autofillHints="" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,19 +54,16 @@
             android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel" />
-
-        <FrameLayout
-            android:layout_width="5dp"
-            android:layout_height="0dp">
-
-        </FrameLayout>
+            android:layout_marginEnd="5dp"
+            android:text="@string/cancel"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/startButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start Match" />
+            android:text="@string/startmatch"
+            style="?android:attr/buttonBarButtonStyle" />
 
     </LinearLayout>
 
