@@ -113,6 +113,11 @@ public class ChessActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void piecePromotion(ChessPiece piece){
+        PromoteDlg dlg = new PromoteDlg();
+        dlg.show(getSupportFragmentManager(), "promotion");
+    }
+
     /**
      * An adapter so that list boxes can display a list of filenames from
      * the cloud server.

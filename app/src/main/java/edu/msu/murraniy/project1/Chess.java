@@ -218,6 +218,18 @@ public class Chess {
                                 }
 
                                 pieces.remove(piece);
+
+                                if(dragging.getType() == Type.PAWN){
+
+                                    if(dragging.getTeam() == Team.WHITE && dragging.getY() <= 0.1875){
+                                        promotePiece(dragging);
+                                    }
+                                    if(dragging.getTeam() == Team.BLACK && dragging.getY() >= 0.8125){
+                                        promotePiece(dragging);
+                                    }
+
+                                }
+
                                 view.invalidate();
                                 checkScore();
                                 break;
@@ -296,6 +308,10 @@ public class Chess {
         if(blackPieces == 0){
             parentView.declareWinner(1);
         }
+    }
+
+    public void promotePiece(ChessPiece piece){
+        parentView.promotePawn(piece);
     }
 
 }

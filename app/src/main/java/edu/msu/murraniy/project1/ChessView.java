@@ -79,4 +79,8 @@ public class ChessView extends View {
         myActivity.callGame(playerNumber);
     }
 
+    public void promotePawn(ChessPiece piece){
+        myActivity.piecePromotion(piece);
+    }
+
 }
