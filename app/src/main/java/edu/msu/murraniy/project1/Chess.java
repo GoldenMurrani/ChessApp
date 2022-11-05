@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -25,6 +26,8 @@ public class Chess {
     private Paint greenPaint;
     // The grayish paint of the board
     private Paint grayPaint;
+    // The sound player for chess piece placement
+    private MediaPlayer mediaPlayer;
     // The size of the chess board in pixels
     private int chessSize;
     // The scaling of the chess pieces
@@ -75,6 +78,9 @@ public class Chess {
         greenPaint.setColor(0xff18453b);
         grayPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         grayPaint.setColor(0xffb9c7c4);
+
+        // Set up the media player
+        mediaPlayer = MediaPlayer.create(context, R.raw.place);
 
         // Give the turn to the white team first
         turn = Team.WHITE;
@@ -195,6 +201,8 @@ public class Chess {
                         if(Math.abs(dragging.getX() - Math.abs(square.getLeft()-67.5)/1000) <= 0.08f && Math.abs(dragging.getY() - Math.abs(square.getTop()-67.5)/1000) <= 0.08f) {
                             dragging.setX(square.getLeft()/1050);
                             dragging.setY((square.getTop())/1100);
+                            // Play placement sound when snapping
+                            mediaPlayer.start();
                             view.invalidate();
                             break;
                         }
