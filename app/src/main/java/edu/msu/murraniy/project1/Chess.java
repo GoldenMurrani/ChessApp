@@ -47,6 +47,8 @@ public class Chess {
      * we are not dragging, the variable is null.
      */
     private ChessPiece dragging = null;
+
+    private ChessPiece lastMoved = null;
     /**
      * Most recent relative X touch when dragging
      */
@@ -235,10 +237,10 @@ public class Chess {
                                 if(dragging.getType() == Type.PAWN){
 
                                     if(dragging.getTeam() == Team.WHITE && dragging.getY() <= 0.1875){
-                                        promotePiece(dragging);
+                                        promotePiece();
                                     }
                                     if(dragging.getTeam() == Team.BLACK && dragging.getY() >= 0.8125){
-                                        promotePiece(dragging);
+                                        promotePiece();
                                     }
 
                                 }
@@ -286,6 +288,7 @@ public class Chess {
             if(pieces.get(p).hit(x, y, chessSize, scaleFactor)) {
                 // We hit a piece!
                 dragging = pieces.get(p);
+                lastMoved = dragging;
                 lastRelX = x;
                 lastRelY = y;
                 return true;
@@ -323,12 +326,48 @@ public class Chess {
         }
     }
 
-    public Context getChessContext() {
-        return chessContext;
+    /**
+     * Tells chess view to promote the last pawn moved
+     */
+    public void promotePiece(){
+        parentView.promotePawn();
     }
 
-    public void promotePiece(ChessPiece piece){
-        parentView.promotePawn(piece);
+    /**
+     * Uses the promotion number to update the pawn to correct piece
+     * @param position
+     */
+    public void updatePiece(int position){
+        if(lastMoved.getTeam() == Chess.Team.WHITE){
+            if(position == 0){
+                lastMoved.setId(R.drawable.queen_white);
+                lastMoved.setType(Chess.Type.QUEEN);
+            }else if(position == 1){
+                lastMoved.setId(R.drawable.rook_white);
+                lastMoved.setType(Chess.Type.ROOK);
+            }else if(position == 2){
+                lastMoved.setId(R.drawable.knight_white);
+                lastMoved.setType(Chess.Type.KNIGHT);
+            }else if(position == 3){
+                lastMoved.setId(R.drawable.bishop_white);
+                lastMoved.setType(Chess.Type.BISHOP);
+            }
+        }
+        if(lastMoved.getTeam() == Chess.Team.BLACK){
+            if(position == 0){
+                lastMoved.setId(R.drawable.queen_black);
+                lastMoved.setType(Chess.Type.QUEEN);
+            }else if(position == 1){
+                lastMoved.setId(R.drawable.rook_black);
+                lastMoved.setType(Chess.Type.ROOK);
+            }else if(position == 2){
+                lastMoved.setId(R.drawable.knight_black);
+                lastMoved.setType(Chess.Type.KNIGHT);
+            }else if(position == 3){
+                lastMoved.setId(R.drawable.bishop_black);
+                lastMoved.setType(Chess.Type.BISHOP);
+            }
+        }
+        parentView.invalidate();
     }
-
 }

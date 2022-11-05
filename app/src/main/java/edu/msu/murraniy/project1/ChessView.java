@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
+
 /**
  * Custom view class for Chess.
  */
@@ -79,8 +81,19 @@ public class ChessView extends View {
         myActivity.callGame(playerNumber);
     }
 
-    public void promotePawn(ChessPiece piece){
-        myActivity.piecePromotion(piece);
+    /**
+     * Calls the Chess Activity to open the dialog box
+     */
+    public void promotePawn(){
+        myActivity.promotionDialog();
+    }
+
+    /**
+     * Sends the position number to chess to update the pawn piece
+     * @param position
+     */
+    public void updatePawn(int position){
+        chess.updatePiece(position);
     }
 
 }
