@@ -8,7 +8,7 @@ import android.graphics.Canvas;
 public class ChessPiece{
 
 	// The image for the chess piece
-	private final Bitmap piece;
+	private Bitmap piece;
 	// X location of the chess piece in pixels
 	private float x;
 	// Y location of the chess piece in pixels
@@ -18,9 +18,11 @@ public class ChessPiece{
 	// The type of the chess piece
 	private Chess.Type type;
 	// The id of this chess piece
-	private final int id;
+	private int id;
 	// Snap piece into place if within this distance
 	final static float SNAP_DISTANCE = 0.05f;
+
+	private Context pieceContext;
 
 
 	public ChessPiece(Context context, int id, Chess.Team team, Chess.Type type) {
@@ -29,6 +31,8 @@ public class ChessPiece{
 		this.type = type;
 
 		piece = BitmapFactory.decodeResource(context.getResources(), id);
+
+		pieceContext = context;
 	}
 
 	public void draw(Canvas canvas, int marginX, int marginY,
@@ -98,6 +102,15 @@ public class ChessPiece{
 	}
 	public void setType(Chess.Type type) {
 		this.type = type;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+		piece = BitmapFactory.decodeResource(pieceContext.getResources(), id);
 	}
 
 }
