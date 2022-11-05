@@ -64,11 +64,16 @@ public class Chess {
      */
     private int blackPieces = 16;
 
+
+
+    private Context chessContext;
+
     private ArrayList<BoardSquare> squares = new ArrayList<>();
 
 
     public Chess(Context context, ChessView view) {
         parentView = view;
+        chessContext = context;
 
         // Create paints for the green and gray of the board
         greenPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -308,6 +313,10 @@ public class Chess {
         if(blackPieces == 0){
             parentView.declareWinner(1);
         }
+    }
+
+    public Context getChessContext() {
+        return chessContext;
     }
 
     public void promotePiece(ChessPiece piece){

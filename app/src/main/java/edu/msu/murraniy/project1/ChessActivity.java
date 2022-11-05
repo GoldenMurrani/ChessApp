@@ -3,6 +3,7 @@ package edu.msu.murraniy.project1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,6 +117,44 @@ public class ChessActivity extends AppCompatActivity {
     public void piecePromotion(ChessPiece piece){
         PromoteDlg dlg = new PromoteDlg();
         dlg.show(getSupportFragmentManager(), "promotion");
+
+        int position = dlg.getPos();
+
+        if(piece.getTeam() == Chess.Team.WHITE){
+
+            if(position == 0){
+                piece.setId(R.drawable.queen_white);
+                piece.setType(Chess.Type.QUEEN);
+            }else if(position == 1){
+                piece.setId(R.drawable.rook_white);
+                piece.setType(Chess.Type.ROOK);
+            }else if(position == 2){
+                piece.setId(R.drawable.knight_white);
+                piece.setType(Chess.Type.KNIGHT);
+            }else if(position == 3){
+                piece.setId(R.drawable.bishop_white);
+                piece.setType(Chess.Type.BISHOP);
+            }
+
+        }
+        if(piece.getTeam() == Chess.Team.BLACK){
+
+            if(position == 0){
+                piece.setId(R.drawable.queen_black);
+                piece.setType(Chess.Type.QUEEN);
+            }else if(position == 1){
+                piece.setId(R.drawable.rook_black);
+                piece.setType(Chess.Type.ROOK);
+            }else if(position == 2){
+                piece.setId(R.drawable.knight_black);
+                piece.setType(Chess.Type.KNIGHT);
+            }else if(position == 3){
+                piece.setId(R.drawable.bishop_black);
+                piece.setType(Chess.Type.BISHOP);
+            }
+
+        }
+
     }
 
     /**
