@@ -22,4 +22,10 @@
     <string name="p2name">Player 2</string>
     <string name="cancel">Cancel</string>
     <string name="startmatch">Start Match</string>
+    <string name="howToPlay">How To Play</string>
+    <string name="instructions">
+        After pressing the start match button each player will take turns moving their pieces until
+        a players king is captured. Move pieces by clicking and dragging them around the board.
+        Capture by placing your piece on your opponent's.
+    </string>
 </resources>

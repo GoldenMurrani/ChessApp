@@ -126,6 +126,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onHowToPlay(View view){
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(view.getContext());
+        // Parameterize the builder
+        builder.setTitle(R.string.howToPlay);
+        builder.setMessage(R.string.instructions);
+
+        // Create the dialog box and show it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
@@ -156,6 +169,5 @@ public class MainActivity extends AppCompatActivity {
         playerTwoN = names[1];
 
         popupActive = bundle.getBoolean(POPUPACTIVE);
-
     }
 }

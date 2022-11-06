@@ -1,5 +1,6 @@
 package edu.msu.murraniy.project1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
@@ -53,6 +54,15 @@ public class ChessActivity extends AppCompatActivity {
 
 
         setPlayerTurnText(playerTurn);
+    }
+
+    /**
+     * Save the instance state into a bundle
+     * @param bundle the bundle to save into
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
     }
 
     public void changeTurn(){
