@@ -14,10 +14,12 @@ Responsiblity:
       Create the ChessActivity class, make start game button open ChessActivity.
 
 
-Member 2: 
+Member 2: Nathaniel Ferry
 
 Responsiblity:
-
+      My main tasks were: Drawing out the chessboard, enabling activity_main layout to scale, layed out most of the starting code for Chess and ChessPiece classes,
+      initializing the ChessPieces and drawing them out on the board, creating a landscape layout for the startpopup, changing player name inputs to title case,
+      and playing a sound upon chess piece placement 
 
 
 Member 3: 
