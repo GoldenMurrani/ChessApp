@@ -207,7 +207,7 @@ public class Chess {
 
             case MotionEvent.ACTION_UP:
                 if(dragging != null && dragging.getTeam() == turn) {
-                    parentView.changeChessTurn();
+//                    parentView.changeChessTurn();
 
 
                     for(BoardSquare square : squares) {
@@ -257,6 +257,8 @@ public class Chess {
                             }
                         }
                     }
+
+                    parentView.changeChessTurn();
                 }
             case MotionEvent.ACTION_CANCEL:
                 if(dragging != null) {
