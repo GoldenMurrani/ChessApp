@@ -37,12 +37,21 @@
         android:contentDescription="@string/green_chessboard"
         app:srcCompat="@drawable/green_chessboard" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/buttonStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="40dp"
+            android:layout_toEndOf="@id/button8"
+            android:onClick="onStart"
+            android:text="@string/start" />
 
         <Button
             android:id="@+id/button8"
@@ -50,17 +59,6 @@
             android:layout_height="wrap_content"
             android:onClick="onHowToPlay"
             android:text="@string/howToPlay" />
-
-        <Button
-            android:id="@+id/buttonStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:onClick="onStart"
-            android:text="@string/start" />
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

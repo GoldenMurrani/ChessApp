@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
                     playerTwoN = "Player 2";
                 }
 
+                playerOneN = toTitleCase(playerOneN);
+                playerTwoN = toTitleCase(playerTwoN);
+
                 onStartMatch(v);
             }
         });
@@ -170,5 +173,25 @@ public class MainActivity extends AppCompatActivity {
         playerTwoN = names[1];
 
         popupActive = bundle.getBoolean(POPUPACTIVE);
+    }
+
+    private String toTitleCase(String input) {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        for (char c : input.toCharArray()) {
+            if (i==0) {
+                sb.append(Character.toUpperCase(c));
+                i += 1;
+            }
+            else if (c==' '){
+                sb.append(c);
+                i = 0;
+            }
+            else {
+                sb.append(Character.toLowerCase(c));
+                i += 1;
+            }
+        }
+        return sb.toString();
     }
 }
