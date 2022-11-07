@@ -211,9 +211,9 @@ public class Chess {
 
 
                     for(BoardSquare square : squares) {
-                        if(Math.abs(dragging.getX() - Math.abs(square.getLeft()-67.5)/1000) <= 0.08f && Math.abs(dragging.getY() - Math.abs(square.getTop()-67.5)/1000) <= 0.08f) {
-                            dragging.setX(square.getLeft()/1050);
-                            dragging.setY((square.getTop())/1100);
+                        if(Math.abs(dragging.getX() - (square.getLeft() + square.getWidth())/1000) <= 0.08f && Math.abs(dragging.getY() - (square.getTop() + square.getHeight())/1000) <= 0.08f) {
+                            dragging.setX((square.getLeft() + square.getWidth())/1000);
+                            dragging.setY((square.getTop() + square.getHeight())/1000);
                             // Play placement sound when snapping
                             mediaPlayer.start();
                             view.invalidate();

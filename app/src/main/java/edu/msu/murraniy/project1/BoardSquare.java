@@ -43,5 +43,7 @@ public class BoardSquare {
     public void setRight(float margin) {this.right = margin;}
     public void setTop(float margin) {this.top = margin;}
     public void setBottom(float margin) {this.bottom = margin;}
+    public float getWidth() { return this.right - this.left;}
+    public float getHeight() { return this.bottom - this.top; }
 
 }
