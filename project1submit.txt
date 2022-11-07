@@ -1,0 +1,38 @@
+
+Project 1 Submission
+
+Group Name: Team 14
+
+When you have completed the project, complete the following form and include it with your project. Include this file as a text file in the folder with your project when you turn it in. 
+
+
+Member 1: Naveen Kumanan
+
+Responsiblity: 
+	My main tasks were: preserve activity_chess on device rotation, Edit startpopup layout for thinner devices, 
+      Preserve startpopup state on device rotation, How-To-Play Dialog Box, Allow chess pieces movement, Create Landscape layout for ChessView, 
+      Create the ChessActivity class, make start game button open ChessActivity.
+
+
+Member 2: 
+
+Responsiblity:
+
+
+
+Member 3: 
+
+Responsiblity:
+
+
+
+Member 4:
+
+Responsiblity:
+
+
+
+Member 5:
+
+Responsiblity:
+
