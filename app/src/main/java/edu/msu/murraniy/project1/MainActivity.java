@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onStartMatch(View view) {
+        popupActive = false;
         Intent intent = new Intent(this, ChessActivity.class);
 
         Bundle bundle_names = new Bundle();

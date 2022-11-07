@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -69,11 +70,16 @@ public class Chess {
      */
     private int blackPieces = 16;
 
-
-
     private Context chessContext;
 
     private ArrayList<BoardSquare> squares = new ArrayList<>();
+
+    /**
+     * The name of the bundle keys to save the Chess game
+     */
+    private final static String LOCATIONS = "Chess.locations";
+    private final static String IDS = "Chess.ids";
+    private final static String PLAYERTURN = "Chess.PlayerTurn";
 
 
     public Chess(Context context, ChessView view) {
@@ -369,5 +375,93 @@ public class Chess {
             }
         }
         parentView.invalidate();
+    }
+
+    /**
+     * Save the puzzle to a bundle
+     * @param bundle The bundle we save to
+     */
+    public void saveInstanceState(Bundle bundle) {
+        float [] locations = new float[pieces.size() * 2];
+        int [] ids = new int[pieces.size()];
+
+        for(int i=0;  i<pieces.size(); i++) {
+            ChessPiece piece = pieces.get(i);
+            locations[i*2] = piece.getX();
+            locations[i*2+1] = piece.getY();
+            ids[i] = piece.getId();
+        }
+
+        bundle.putFloatArray(LOCATIONS, locations);
+        bundle.putIntArray(IDS,  ids);
+
+        String turnAsString = "";
+        if(turn == Team.WHITE){
+            turnAsString = "WHITE";
+        }
+        else{
+            turnAsString = "BLACK";
+        }
+        bundle.putString(PLAYERTURN, turnAsString);
+    }
+
+    /**
+     * Read the puzzle from a bundle
+     * @param bundle The bundle we save to
+     */
+    public void loadInstanceState(Bundle bundle) {
+        float [] locations = bundle.getFloatArray(LOCATIONS);
+        int [] ids = bundle.getIntArray(IDS);
+
+        for(int i=0; i<ids.length-1; i++) {
+
+            // Find the corresponding piece
+            // We don't have to test if the piece is at i already,
+            // since the loop below will fall out without it moving anything
+            for(int j=i+1;  j<ids.length;  j++) {
+                if(ids[i] == pieces.get(j).getId()) {
+                    // We found it
+                    // Yah...
+                    // Swap the pieces
+                    ChessPiece t = pieces.get(i);
+                    pieces.set(i, pieces.get(j));
+                    pieces.set(j, t);
+                }
+            }
+        }
+
+        /// loop to remove captured pieces from pieces before reloading everything.
+        for(ChessPiece piece: pieces){
+            boolean present = false;
+            for(int id : ids){
+                if (id == piece.getId()){
+                    present = true;
+                }
+            }
+            if (!present){
+                pieces.remove(piece);
+            }
+        }
+
+        for(int i=0;  i<pieces.size(); i++) {
+            ChessPiece piece = pieces.get(i);
+
+            // this is for pieces that are captured.
+            // band-aid solution make sure to make a better solution.
+            if((i*2+1) >= locations.length){
+                pieces.remove(piece);
+                continue;
+            }
+
+            piece.setX(locations[i*2]);
+            piece.setY(locations[i*2+1]);
+        }
+
+        if(bundle.getString(PLAYERTURN) == "WHITE"){
+            turn = Team.WHITE;
+        }
+        else{
+            turn = Team.BLACK;
+        }
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Canvas;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -94,6 +95,22 @@ public class ChessView extends View {
      */
     public void updatePawn(int position){
         chess.updatePiece(position);
+    }
+
+    /**
+     * Save the Chess board to a bundle
+     * @param bundle The bundle we save to
+     */
+    public void saveInstanceState(Bundle bundle) {
+        chess.saveInstanceState(bundle);
+    }
+
+    /**
+     * Load the Chess Board from a bundle
+     * @param bundle The bundle we save to
+     */
+    public void loadInstanceState(Bundle bundle) {
+        chess.loadInstanceState(bundle);
     }
 
 }

@@ -18,6 +18,11 @@ import org.w3c.dom.Text;
 public class ChessActivity extends AppCompatActivity {
 
     /**
+     * bundle keys
+     */
+    private final static String PLAYERTURN = "ChessActivity.PlayerTurn";
+
+    /**
      * Player 1 Name
      */
     private String playerOnen;
@@ -38,9 +43,17 @@ public class ChessActivity extends AppCompatActivity {
 
     private String messageText;
 
+    /**
+     * Get the puzzle view
+     * @return PuzzleView reference
+     */
+    private ChessView getChessView() {
+        return (ChessView)this.findViewById(R.id.chessView);
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
         setContentView(R.layout.activity_chess);
 
         Bundle temp = getIntent().getExtras();
@@ -54,6 +67,21 @@ public class ChessActivity extends AppCompatActivity {
 
 
         setPlayerTurnText(playerTurn);
+
+        if(bundle != null) {
+            // We have saved state
+            loadInstanceState(bundle);
+            setPlayerTurnText(playerTurn);
+            getChessView().loadInstanceState(bundle);
+        }
+    }
+
+    /**
+     * Load the Player Turn from a bundle
+     * @param bundle The bundle we save to
+     */
+    public void loadInstanceState(Bundle bundle) {
+        playerTurn = bundle.getInt(PLAYERTURN);
     }
 
     /**
@@ -63,6 +91,9 @@ public class ChessActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
+
+        bundle.putInt(PLAYERTURN, playerTurn);
+        getChessView().saveInstanceState(bundle);
     }
 
     public void changeTurn(){
