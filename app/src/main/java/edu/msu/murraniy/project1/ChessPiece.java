@@ -21,6 +21,16 @@ public class ChessPiece{
 	private int id;
 	// Snap piece into place if within this distance
 	final static float SNAP_DISTANCE = 0.05f;
+	// unique id used to save and load state correctly.
+	private int unique_id;
+
+	public int getUnique_id() {
+		return unique_id;
+	}
+
+	public void setUnique_id(int unique_id) {
+		this.unique_id = unique_id;
+	}
 
 	private Context pieceContext;
 

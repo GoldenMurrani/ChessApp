@@ -132,6 +132,12 @@ public class Chess {
         pieces.add(new ChessPiece(context, R.drawable.knight_white, Team.WHITE, Type.KNIGHT));
         pieces.add(new ChessPiece(context, R.drawable.rook_white, Team.WHITE, Type.ROOK));
 
+        // set  unique id for each piece as just a number from 0-31.
+        for(int i=0; i<pieces.size();i++){
+            ChessPiece piece = pieces.get(i);
+            piece.setUnique_id(i);
+        }
+
         startingPlacement();
     }
 
@@ -389,10 +395,11 @@ public class Chess {
             ChessPiece piece = pieces.get(i);
             locations[i*2] = piece.getX();
             locations[i*2+1] = piece.getY();
-            ids[i] = piece.getId();
+            ids[i] = piece.getUnique_id();
         }
 
         bundle.putFloatArray(LOCATIONS, locations);
+        // is actually unique_ids not ids
         bundle.putIntArray(IDS,  ids);
 
         String turnAsString = "";
@@ -413,13 +420,13 @@ public class Chess {
         float [] locations = bundle.getFloatArray(LOCATIONS);
         int [] ids = bundle.getIntArray(IDS);
 
-        for(int i=0; i<ids.length-1; i++) {
+        /*for(int i=0; i<ids.length-1; i++) {
 
             // Find the corresponding piece
             // We don't have to test if the piece is at i already,
             // since the loop below will fall out without it moving anything
             for(int j=i+1;  j<ids.length;  j++) {
-                if(ids[i] == pieces.get(j).getId()) {
+                if(ids[i] == pieces.get(j).getUnique_id()) {
                     // We found it
                     // Yah...
                     // Swap the pieces
@@ -428,14 +435,19 @@ public class Chess {
                     pieces.set(j, t);
                 }
             }
-        }
+        }*/
 
         /// loop to remove captured pieces from pieces before reloading everything.
-        for(ChessPiece piece: pieces){
+        ArrayList<ChessPiece> allPieces = new ArrayList<ChessPiece>(pieces);
+
+        for(int i=0;  i<allPieces.size(); i++) {
+            ChessPiece piece = allPieces.get(i);
+
             boolean present = false;
             for(int id : ids){
-                if (id == piece.getId()){
+                if (id == piece.getUnique_id()){
                     present = true;
+                    break;
                 }
             }
             if (!present){
@@ -445,13 +457,6 @@ public class Chess {
 
         for(int i=0;  i<pieces.size(); i++) {
             ChessPiece piece = pieces.get(i);
-
-            // this is for pieces that are captured.
-            // band-aid solution make sure to make a better solution.
-            if((i*2+1) >= locations.length){
-                pieces.remove(piece);
-                continue;
-            }
 
             piece.setX(locations[i*2]);
             piece.setY(locations[i*2+1]);
