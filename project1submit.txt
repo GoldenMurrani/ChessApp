@@ -35,7 +35,8 @@ layout design, layout compatibility for all required course devices, promotion d
 
 
 
-Member 5:
+Member 5: Tommy Kocab
 
 Responsiblity:
+Create initial project and push to repo; add methods/member variables for MainActivity, ChessActivity, and ChessView; Create the ChessPiece class; Create 2 dimensional array for the chess pieces in Chess; Implement capturing opponents pieces; Make chess pieces click in place; Create "square location" functionality for pieces; Create square class for chess board
 
