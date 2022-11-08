@@ -1,4 +1,3 @@
-
 Project 1 Submission
 
 Group Name: Team 14
@@ -22,9 +21,10 @@ Responsiblity:
       and playing a sound upon chess piece placement 
 
 
-Member 3: 
+Member 3: Yousif Murrani
 
-Responsiblity:
+Responsiblity: Name Input Functionality, Check For Game Win (By Winning the Game or Resignation), Make Winner Page, Implement Pawn Promotion Functionality
+
 
 
 
