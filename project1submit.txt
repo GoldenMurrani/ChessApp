@@ -28,9 +28,10 @@ Responsiblity: Name Input Functionality, Check For Game Win (By Winning the Game
 
 
 
-Member 4:
+Member 4: Marshall Kroske
 
 Responsiblity:
+layout design, layout compatibility for all required course devices, promotion dialog, changing turn functionality
 
 
 
