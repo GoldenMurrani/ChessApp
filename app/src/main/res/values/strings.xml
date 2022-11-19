@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Chess</string>
-    <string name="start">Start Match</string>
+    <string name="start">LOG IN</string>
     <string name="green_chessboard">Green Chessboard</string>
     <string name="game_title">Chess:\nThe Game for Smart People</string>
     <string name="done">Done</string>
@@ -18,10 +18,12 @@
     <string name="winText">is the Winner! We declare them a true Master of Chess</string>
     <string name="loseText">is the loser.</string>
     <string name="placeholder">placeholder</string>
-    <string name="p1name">Player 1</string>
-    <string name="p2name">Player 2</string>
+    <string name="p1name">enter username</string>
+    <string name="p2name">enter password</string>
     <string name="cancel">Cancel</string>
-    <string name="startmatch">Start Match</string>
+    <string name="startmatch">LOG IN</string>
+    <string name="newuser">Create New Player</string>
+    <string name="rememberuser">Remember Me</string>
     <string name="howToPlay">How To Play</string>
     <string name="instructions">
         After pressing the start match button each player will take turns moving their pieces until
