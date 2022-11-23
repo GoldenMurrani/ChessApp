@@ -14,18 +14,51 @@ public class BoardSquare {
     private float right;
     // bottom margin
     private float bottom;
+    // Chess board grid X (leftmost is 0)
+    private int chessX;
+    // Chess board grid Y (topmost is 0)
+    private int chessY;
+
+
+    public int getChessX() {
+        return chessX;
+    }
+
+    public void setChessX(int chessX) {
+        this.chessX = chessX;
+    }
+
+    public int getChessY() {
+        return chessY;
+    }
+
+    public void setChessY(int chessY) {
+        this.chessY = chessY;
+    }
+
+    public float getCenterX() {
+        return ((right - left)/2)+left;
+    }
+
+    public float getCenterY() {
+        return ((bottom - top)/2)+top;
+    }
+
+
     // Color of square (green or grey)
     private Paint color;
 
     private boolean drawn = false;
 
 
-    public BoardSquare(float left, float top, float right, float bottom, Paint color) {
+    public BoardSquare(float left, float top, float right, float bottom, Paint color, int X, int Y) {
         this.left = left;
         this.top = top;
         this.right = right;
         this.bottom = bottom;
         this.color = color;
+        this.chessX = X;
+        this.chessY = Y;
     }
 
     public void draw(Canvas canvas, float scaleFactor) {

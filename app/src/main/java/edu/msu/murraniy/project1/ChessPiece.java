@@ -13,6 +13,10 @@ public class ChessPiece{
 	private float x;
 	// Y location of the chess piece in pixels
 	private float y;
+	// Chess board grid X (leftmost is 0)
+	private int chessX;
+	// Chess board grid Y (topmost is 0)
+	private int chessY;
 	// Team of this chess piece
 	private Chess.Team team;
 	// The type of the chess piece
@@ -35,10 +39,12 @@ public class ChessPiece{
 	private Context pieceContext;
 
 
-	public ChessPiece(Context context, int id, Chess.Team team, Chess.Type type) {
+	public ChessPiece(Context context, int id, Chess.Team team, Chess.Type type, int x, int y) {
 		this.id = id;
 		this.team = team;
 		this.type = type;
+		this.chessX = x;
+		this.chessY = y;
 
 		piece = BitmapFactory.decodeResource(context.getResources(), id);
 
@@ -69,6 +75,10 @@ public class ChessPiece{
 	public void setX(float x) { this.x = x; }
 	public float getY() { return y; }
 	public void setY(float y) { this.y = y; }
+	public int getChessX() { return chessX; }
+	public void setChessX(int chessX) { this.chessX = chessX; }
+	public int getChessY() { return chessY; }
+	public void setChessY(int chessY) { this.chessY = chessY; }
 
 	/**
 	 * Test to see if we have touched a puzzle piece

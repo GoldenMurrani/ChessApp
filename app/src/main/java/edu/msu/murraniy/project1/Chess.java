@@ -99,38 +99,26 @@ public class Chess {
         turn = Team.WHITE;
 
         // Initialize the chess pieces
-        pieces.add(new ChessPiece(context, R.drawable.rook_black, Team.BLACK, Type.ROOK));
-        pieces.add(new ChessPiece(context, R.drawable.knight_black, Team.BLACK, Type.KNIGHT));
-        pieces.add(new ChessPiece(context, R.drawable.bishop_black, Team.BLACK, Type.BISHOP));
-        pieces.add(new ChessPiece(context, R.drawable.queen_black, Team.BLACK, Type.QUEEN));
-        pieces.add(new ChessPiece(context, R.drawable.king_black, Team.BLACK, Type.KING));
-        pieces.add(new ChessPiece(context, R.drawable.bishop_black, Team.BLACK, Type.BISHOP));
-        pieces.add(new ChessPiece(context, R.drawable.knight_black, Team.BLACK, Type.KNIGHT));
-        pieces.add(new ChessPiece(context, R.drawable.rook_black, Team.BLACK, Type.ROOK));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN));
-        pieces.add(new ChessPiece(context, R.drawable.rook_white, Team.WHITE, Type.ROOK));
-        pieces.add(new ChessPiece(context, R.drawable.knight_white, Team.WHITE, Type.KNIGHT));
-        pieces.add(new ChessPiece(context, R.drawable.bishop_white, Team.WHITE, Type.BISHOP));
-        pieces.add(new ChessPiece(context, R.drawable.queen_white, Team.WHITE, Type.QUEEN));
-        pieces.add(new ChessPiece(context, R.drawable.king_white, Team.WHITE, Type.KING));
-        pieces.add(new ChessPiece(context, R.drawable.bishop_white, Team.WHITE, Type.BISHOP));
-        pieces.add(new ChessPiece(context, R.drawable.knight_white, Team.WHITE, Type.KNIGHT));
-        pieces.add(new ChessPiece(context, R.drawable.rook_white, Team.WHITE, Type.ROOK));
+        pieces.add(new ChessPiece(context, R.drawable.rook_black, Team.BLACK, Type.ROOK, 0, 0));
+        pieces.add(new ChessPiece(context, R.drawable.knight_black, Team.BLACK, Type.KNIGHT, 1, 0));
+        pieces.add(new ChessPiece(context, R.drawable.bishop_black, Team.BLACK, Type.BISHOP, 2, 0));
+        pieces.add(new ChessPiece(context, R.drawable.queen_black, Team.BLACK, Type.QUEEN, 3, 0));
+        pieces.add(new ChessPiece(context, R.drawable.king_black, Team.BLACK, Type.KING, 4, 0));
+        pieces.add(new ChessPiece(context, R.drawable.bishop_black, Team.BLACK, Type.BISHOP, 5, 0));
+        pieces.add(new ChessPiece(context, R.drawable.knight_black, Team.BLACK, Type.KNIGHT,6, 0));
+        pieces.add(new ChessPiece(context, R.drawable.rook_black, Team.BLACK, Type.ROOK, 7, 0));
+        for (int i = 0; i < 8; i++) {
+            pieces.add(new ChessPiece(context, R.drawable.pawn_black, Team.BLACK, Type.PAWN, i, 1));
+            pieces.add(new ChessPiece(context, R.drawable.pawn_white, Team.WHITE, Type.PAWN, i, 6));
+        }
+        pieces.add(new ChessPiece(context, R.drawable.rook_white, Team.WHITE, Type.ROOK, 0, 7));
+        pieces.add(new ChessPiece(context, R.drawable.knight_white, Team.WHITE, Type.KNIGHT, 1, 7));
+        pieces.add(new ChessPiece(context, R.drawable.bishop_white, Team.WHITE, Type.BISHOP, 2, 7));
+        pieces.add(new ChessPiece(context, R.drawable.queen_white, Team.WHITE, Type.QUEEN, 3, 7));
+        pieces.add(new ChessPiece(context, R.drawable.king_white, Team.WHITE, Type.KING, 4, 7));
+        pieces.add(new ChessPiece(context, R.drawable.bishop_white, Team.WHITE, Type.BISHOP, 5, 7));
+        pieces.add(new ChessPiece(context, R.drawable.knight_white, Team.WHITE, Type.KNIGHT,6, 7));
+        pieces.add(new ChessPiece(context, R.drawable.rook_white, Team.WHITE, Type.ROOK, 7, 7));
 
         // set  unique id for each piece as just a number from 0-31.
         for(int i=0; i<pieces.size();i++){
@@ -159,7 +147,7 @@ public class Chess {
                     Paint squarePaint = ((i + j) % 2) == 0 ? grayPaint : greenPaint;
                     squares.add(new BoardSquare(marginX + (chessSize * j) / 8.0f, marginY + (chessSize * i) / 8.0f,
                             marginX + (chessSize * (j + 1)) / 8.0f, marginY + (chessSize * (i + 1)) / 8.0f,
-                            squarePaint));
+                            squarePaint, j, i));
 
                 }
             }
@@ -180,14 +168,14 @@ public class Chess {
 
     }
 
-    // Place the chess pieces in their starting positions (assuming properly ordered array)
+    // Place the chess pieces in their starting positions
     public void startingPlacement() {
         for (int i = 0; i < 32; i++) {
             ChessPiece piece = pieces.get(i);
-            int offset_team = i < 16 ? 0 : 12;
-            int offset_row = (i%16) < 8 ? 0 : 2;
-            piece.setX(((i%8)*2+1)/16.0f);
-            piece.setY((offset_team+offset_row+1)/16.0f);
+            int x = piece.getChessX();
+            int y = piece.getChessY();
+            piece.setX((x*2+1)/16.0f);
+            piece.setY((y*2+1)/16.0f);
         }
     }
 
@@ -217,15 +205,22 @@ public class Chess {
 
 
                     for(BoardSquare square : squares) {
-                        if(Math.abs(dragging.getX() - (square.getLeft() + square.getWidth())/1000) <= 0.08f && Math.abs(dragging.getY() - (square.getTop() + square.getHeight())/1000) <= 0.08f) {
-                            dragging.setX((square.getLeft() + square.getWidth())/1000);
-                            dragging.setY((square.getTop() + square.getHeight())/1000);
+                        float relSquareX = (square.getCenterX() - marginX) / chessSize;
+                        float relSquareY = (square.getCenterY() - marginY) / chessSize;
+
+                        if(Math.abs(relSquareX - dragging.getX()) <= 0.08f && Math.abs(relSquareY - dragging.getY()) <= 0.08f) {
+                            dragging.setX(relSquareX);
+                            dragging.setY(relSquareY);
+                            dragging.setChessX(square.getChessX());
+                            dragging.setChessY(square.getChessY());
                             // Play placement sound when snapping
                             mediaPlayer.start();
                             view.invalidate();
                             break;
                         }
                     }
+
+
 
                     for(ChessPiece piece : pieces) {
                         if(dragging.getTeam() != piece.getTeam()) {
@@ -248,10 +243,10 @@ public class Chess {
 
                                 if(dragging.getType() == Type.PAWN){
 
-                                    if(dragging.getTeam() == Team.WHITE && dragging.getY() <= 0.1875){
+                                    if(dragging.getTeam() == Team.WHITE && dragging.getY() <= 0.0625){
                                         promotePiece();
                                     }
-                                    if(dragging.getTeam() == Team.BLACK && dragging.getY() >= 0.8125){
+                                    if(dragging.getTeam() == Team.BLACK && dragging.getY() >= 0.9375){
                                         promotePiece();
                                     }
 
@@ -266,6 +261,7 @@ public class Chess {
 
                     parentView.changeChessTurn();
                 }
+
             case MotionEvent.ACTION_CANCEL:
                 if(dragging != null) {
                     dragging = null;
