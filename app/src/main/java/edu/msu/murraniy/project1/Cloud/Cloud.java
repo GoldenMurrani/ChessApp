@@ -30,6 +30,9 @@ public class Cloud {
             .addConverterFactory(SimpleXmlConverterFactory.create())
             .build();
 
+    public boolean createUser(String username, String password) {
+        return true;
+    }
 
 }
 

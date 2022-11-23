@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import edu.msu.murraniy.project1.Cloud.Cloud;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private EditText startpopup_playerone, startpopup_playertwo;
-    private Button startpopup_start, startpopup_cancel;
+    private Button startpopup_start, startpopup_cancel, startpopup_newuser;
 
     private String playerOneN = "Player 1";
     private String playerTwoN = "Player 2";
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         startpopup_start = (Button) startPopUp.findViewById(R.id.startButton);
         startpopup_cancel = (Button) startPopUp.findViewById(R.id.cancelButton);
+        startpopup_newuser = (Button) startPopUp.findViewById(R.id.newUser);
 
         dialogBuilder.setView(startPopUp);
         dialog = dialogBuilder.create();
@@ -94,6 +97,22 @@ public class MainActivity extends AppCompatActivity {
                 playerOneN = "";
                 playerTwoN = "";
                 dialog.dismiss();
+            }
+        });
+
+        startpopup_newuser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = startpopup_playerone.getText().toString();
+                String password = startpopup_playertwo.getText().toString();
+
+                username = toTitleCase(playerOneN);
+                password = toTitleCase(playerTwoN);
+
+                // Create cloud and call create user here
+                Cloud cloud = new Cloud();
+                boolean result = cloud.createUser(username, password);
+                // Handle result here? Create a toast if fail?
             }
         });
 
@@ -194,4 +213,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return sb.toString();
     }
+
+
 }
