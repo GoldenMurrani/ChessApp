@@ -31,4 +31,5 @@
         Capture by placing your piece on your opponent\'s.
     </string>
     <string name="create_game">Create A Game</string>
+    <string name="validation_fail">Failed to validate user.</string>
 </resources>
