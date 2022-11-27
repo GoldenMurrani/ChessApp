@@ -30,4 +30,5 @@
         a players king is captured. Move pieces by clicking and dragging them around the board.
         Capture by placing your piece on your opponent\'s.
     </string>
+    <string name="create_game">Create A Game</string>
 </resources>

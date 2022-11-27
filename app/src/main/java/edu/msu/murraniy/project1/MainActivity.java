@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private EditText startpopup_playerone, startpopup_playertwo;
-    private Button startpopup_start, startpopup_cancel, startpopup_newuser;
+    private Button startpopup_login, startpopup_cancel, startpopup_newuser;
 
     private String playerOneN = "Player 1";
     private String playerTwoN = "Player 2";
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         startpopup_playerone = (EditText) startPopUp.findViewById(R.id.startpopup_p_one);
         startpopup_playertwo = (EditText) startPopUp.findViewById(R.id.startpopup_p_two);
 
-        startpopup_start = (Button) startPopUp.findViewById(R.id.startButton);
+        startpopup_login = (Button) startPopUp.findViewById(R.id.loginButton);
         startpopup_cancel = (Button) startPopUp.findViewById(R.id.cancelButton);
         startpopup_newuser = (Button) startPopUp.findViewById(R.id.newUser);
 
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         dialog = dialogBuilder.create();
         dialog.show();
 
-        startpopup_start.setOnClickListener(new View.OnClickListener() {
+        startpopup_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 playerOneN = startpopup_playerone.getText().toString();
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 playerOneN = toTitleCase(playerOneN);
                 playerTwoN = toTitleCase(playerTwoN);
 
-                onStartMatch(v);
+                onLogin(v);
             }
         });
 
@@ -136,15 +136,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void onStartMatch(View view) {
+    public void onLogin(View view) {
         popupActive = false;
-        Intent intent = new Intent(this, ChessActivity.class);
+        Intent intent = new Intent(this, AvailableGamesActivity.class);
 
         Bundle bundle_names = new Bundle();
         bundle_names.putString("player_name_1", playerOneN);
         bundle_names.putString("player_name_2", playerTwoN);
 
         intent.putExtras(bundle_names);
+
+
 
         startActivity(intent);
     }
