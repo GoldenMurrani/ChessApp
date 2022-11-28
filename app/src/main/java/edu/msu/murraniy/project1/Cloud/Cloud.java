@@ -1,6 +1,7 @@
 package edu.msu.murraniy.project1.Cloud;
 
 import android.util.Log;
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +9,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.xmlpull.v1.XmlSerializer;
+
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 
 import edu.msu.murraniy.project1.Chess;
+import edu.msu.murraniy.project1.Cloud.Models.CreateUser;
 import edu.msu.murraniy.project1.Cloud.Models.ValidateUser;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -35,7 +40,46 @@ public class Cloud {
             .addConverterFactory(SimpleXmlConverterFactory.create())
             .build();
 
-    public boolean createUser(String username, String password) { return true; }
+    public boolean createUser(String username, String password) {
+
+        username = username.trim();
+        password = password.trim();
+
+        if(username.length() == 0){
+            return false;
+        }
+        if(password.length() == 0){
+            return false;
+        }
+
+        ChessService service = retrofit.create(ChessService.class);
+
+        try{
+            Response<CreateUser> response = service.createUser(username, MAGIC, password).execute();
+
+            if(response.isSuccessful()){
+                CreateUser result = response.body();
+
+                if (result.getStatus() != null && result.getStatus().equals("yes")) {
+                    return true;
+                }
+                Log.e("CreateUser", "Failed to create, message = '" + result.getMessage() + "'");
+                return false;
+
+            }
+            Log.e("CreateUser", "Failed to create, message = '" + response.code() + "'");
+            return false;
+
+        }catch (IOException e){
+            Log.e("CreateUser", "Exception occurred while trying to create user!", e);
+            return false;
+        }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
+            Log.e("CreateUser", "Runtime Exception: " + e.getMessage());
+            return false;
+        }
+
+
+    }
 
     public boolean validateUser() throws IOException, RuntimeException {
         ChessService service = retrofit.create(ChessService.class);

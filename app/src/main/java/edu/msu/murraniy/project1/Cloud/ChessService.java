@@ -16,12 +16,12 @@ import static edu.msu.murraniy.project1.Cloud.Cloud.VALIDATEUSER_PATH;
 
 public interface ChessService {
 
+    @FormUrlEncoded
     @POST(CREATEUSER_PATH)
     Call<CreateUser> createUser(
             @Field("user") String userId,
             @Field("magic") String magic,
-            @Field("pw") String password,
-            @Field("xml") String xmlData
+            @Field("pw") String password
     );
 
     @GET(VALIDATEUSER_PATH)
