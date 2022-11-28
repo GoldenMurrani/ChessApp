@@ -81,16 +81,43 @@ public class Cloud {
 
     }
 
-    public boolean validateUser() throws IOException, RuntimeException {
-        ChessService service = retrofit.create(ChessService.class);
+    public boolean validateUser(String username, String password) throws IOException, RuntimeException {
 
-        Response<ValidateUser> response = service.validateUser(USER, PASSWORD, MAGIC).execute();
+        username = username.trim();
+        password = password.trim();
 
-        if(!response.isSuccessful()){
-            Log.e("validateUser", "Failed to validate user, response code is = " + response.code());
+        if(username.length() == 0){
             return false;
         }
-        return true;
+        if(password.length() == 0){
+            return false;
+        }
+
+        ChessService service = retrofit.create(ChessService.class);
+
+        try{
+            Response<ValidateUser> response = service.validateUser(username, MAGIC, password).execute();
+
+            if(response.isSuccessful()){
+                ValidateUser result = response.body();
+
+                if (result.getStatus() != null && result.getStatus().equals("yes")) {
+                    return true;
+                }
+                Log.e("ValidateUser", "Failed to validate, message = '" + result.getMessage() + "'");
+                return false;
+
+            }
+            Log.e("ValidateUser", "Failed to create, message = '" + response.code() + "'");
+            return false;
+
+        }catch (IOException e){
+            Log.e("ValidateUser", "Exception occurred while trying to validate user!", e);
+            return false;
+        }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
+            Log.e("ValidateUser", "Runtime Exception: " + e.getMessage());
+            return false;
+        }
 
     }
 

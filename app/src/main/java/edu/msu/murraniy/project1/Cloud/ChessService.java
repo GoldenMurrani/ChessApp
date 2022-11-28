@@ -26,8 +26,8 @@ public interface ChessService {
 
     @GET(VALIDATEUSER_PATH)
     Call<ValidateUser> validateUser(
-            @Field("user") String userId,
-            @Field("magic") String magic,
-            @Field("pw") String password
+            @Query("user") String userId,
+            @Query("magic") String magic,
+            @Query("pw") String password
     );
 }

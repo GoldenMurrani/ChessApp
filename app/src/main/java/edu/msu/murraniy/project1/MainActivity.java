@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder2;
     private AlertDialog dialog;
     private AlertDialog dialog2;
-    private EditText startpopup_playerone, startpopup_playertwo, new_user, new_pass, new_pass2;
+    private EditText startpopup_user, startpopup_pass, new_user, new_pass, new_pass2;
     private Button startpopup_login, startpopup_cancel, startpopup_newuser, newuser_create, newuser_cancel;
 
     private String playerOneN = "Player 1";
@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (popupActive){
             createNewContactDialog();
-            startpopup_playerone.setText(playerOneN);
-            startpopup_playertwo.setText(playerTwoN);
+            startpopup_user.setText(playerOneN);
+            startpopup_pass.setText(playerTwoN);
         }
         if(userPopUp){
             createNewUserContactDialog();
@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder = new AlertDialog.Builder(this);
         final View startPopUp = getLayoutInflater().inflate(R.layout.startpopup, null);
 
-        startpopup_playerone = (EditText) startPopUp.findViewById(R.id.startpopup_p_one);
-        startpopup_playertwo = (EditText) startPopUp.findViewById(R.id.startpopup_p_two);
+        startpopup_user = (EditText) startPopUp.findViewById(R.id.startpopup_p_one);
+        startpopup_pass = (EditText) startPopUp.findViewById(R.id.startpopup_p_two);
 
         startpopup_login = (Button) startPopUp.findViewById(R.id.loginButton);
         startpopup_cancel = (Button) startPopUp.findViewById(R.id.cancelButton);
@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
         startpopup_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playerOneN = startpopup_playerone.getText().toString();
-                playerTwoN = startpopup_playertwo.getText().toString();
+                playerOneN = startpopup_user.getText().toString();
+                playerTwoN = startpopup_pass.getText().toString();
 
                 if(playerOneN.matches("")){
                     playerOneN = "Player 1";
@@ -94,9 +94,6 @@ public class MainActivity extends AppCompatActivity {
                 if(playerTwoN.matches("")){
                     playerTwoN = "Player 2";
                 }
-
-                playerOneN = toTitleCase(playerOneN);
-                playerTwoN = toTitleCase(playerTwoN);
 
                 onLogin(v);
             }
@@ -130,12 +127,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        startpopup_playertwo.addTextChangedListener(new TextWatcher() {
+        startpopup_pass.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Fires right as the text is being changed (even supplies the range of text)
-                playerOneN = startpopup_playerone.getText().toString();
-                playerTwoN = startpopup_playertwo.getText().toString();
+                playerOneN = startpopup_user.getText().toString();
+                playerTwoN = startpopup_pass.getText().toString();
             }
 
             @Override
@@ -166,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 Cloud cloud = new Cloud();
                 final boolean ok;
                 try {
-                    ok = cloud.validateUser();
+                    ok = cloud.validateUser(playerOneN, playerTwoN);
 
                     if(!ok) {
                         /*
@@ -229,8 +226,6 @@ public class MainActivity extends AppCompatActivity {
                 new_passwordA = new_pass2.getText().toString();
 
                 if(new_password.matches(new_passwordA)){
-//                    Cloud cloud = new Cloud();
-//                    boolean result = cloud.createUser(new_username, new_password);
 
                     new Thread(new Runnable() {
                         @Override
