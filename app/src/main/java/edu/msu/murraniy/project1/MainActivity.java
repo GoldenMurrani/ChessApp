@@ -254,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     });
                                 } else{
+                                    userPopUp = false;
                                     dialog2.dismiss();
                                 }
                             } catch (Exception e) {
