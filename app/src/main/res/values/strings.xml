@@ -20,6 +20,9 @@
     <string name="placeholder">placeholder</string>
     <string name="p1name">enter username</string>
     <string name="p2name">enter password</string>
+    <string name="enteruser">enter username</string>
+    <string name="enterpass">enter password</string>
+    <string name="enterpassa">enter password again</string>
     <string name="cancel">Cancel</string>
     <string name="startmatch">LOG IN</string>
     <string name="newuser">Create New Player</string>
@@ -32,4 +35,6 @@
     </string>
     <string name="create_game">Create A Game</string>
     <string name="validation_fail">Failed to validate user.</string>
+    <string name="password_val">Passwords Must Match</string>
+    <string name="newuser_fail">Failed to Create New User</string>
 </resources>

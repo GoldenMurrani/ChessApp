@@ -24,18 +24,23 @@ public class MainActivity extends AppCompatActivity {
      */
     private final static String NAMES = "MainActivity.Names";
     private final static String POPUPACTIVE = "MainActivity.PopupActive";
+    private final static String USERPOPUP = "MainActivity.UserPopup";
 
     private AlertDialog.Builder dialogBuilder;
+    private AlertDialog.Builder dialogBuilder2;
     private AlertDialog dialog;
-    private EditText startpopup_playerone, startpopup_playertwo;
-    private Button startpopup_login, startpopup_cancel, startpopup_newuser;
+    private AlertDialog dialog2;
+    private EditText startpopup_playerone, startpopup_playertwo, new_user, new_pass, new_pass2;
+    private Button startpopup_login, startpopup_cancel, startpopup_newuser, newuser_create, newuser_cancel;
 
     private String playerOneN = "Player 1";
     private String playerTwoN = "Player 2";
+    private String new_username, new_password, new_passwordA;
     /**
      * popupActive used to display popup on changing device orientation.
      */
     boolean popupActive = false;
+    boolean userPopUp = false;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -51,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
             createNewContactDialog();
             startpopup_playerone.setText(playerOneN);
             startpopup_playertwo.setText(playerTwoN);
+        }
+        if(userPopUp){
+            createNewUserContactDialog();
         }
     }
 
@@ -107,16 +115,18 @@ public class MainActivity extends AppCompatActivity {
         startpopup_newuser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = startpopup_playerone.getText().toString();
-                String password = startpopup_playertwo.getText().toString();
-
-                username = toTitleCase(playerOneN);
-                password = toTitleCase(playerTwoN);
+//                String username = startpopup_playerone.getText().toString();
+//                String password = startpopup_playertwo.getText().toString();
+//
+//                username = toTitleCase(playerOneN);
+//                password = toTitleCase(playerTwoN);
 
                 // Create cloud and call create user here
-                Cloud cloud = new Cloud();
-                boolean result = cloud.createUser(username, password);
+//                Cloud cloud = new Cloud();
+//                boolean result = cloud.createUser(username, password);
                 // Handle result here? Create a toast if fail?
+                userPopUp = true;
+                createNewUserContactDialog();
             }
         });
 
@@ -188,6 +198,86 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
+    public void createNewUserContactDialog(){
+        dialogBuilder2 = new AlertDialog.Builder(this);
+        final View createUserPopUp = getLayoutInflater().inflate(R.layout.newuserpopup, null);
+
+        new_user = (EditText) createUserPopUp.findViewById(R.id.newusername);
+        new_pass = (EditText) createUserPopUp.findViewById(R.id.newpass);
+        new_pass2 = (EditText) createUserPopUp.findViewById(R.id.newpassword2);
+
+        newuser_create = (Button) createUserPopUp.findViewById(R.id.createNewButton);
+        newuser_cancel = (Button) createUserPopUp.findViewById(R.id.cancelUserButton);
+
+        dialogBuilder2.setView(createUserPopUp);
+        dialog2 = dialogBuilder2.create();
+        dialog2.show();
+
+        newuser_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userPopUp = false;
+                dialog2.dismiss();
+            }
+        });
+
+        newuser_create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new_username = new_user.getText().toString();
+                new_password = new_pass.getText().toString();
+                new_passwordA = new_pass2.getText().toString();
+
+                if(new_password.matches(new_passwordA)){
+//                    Cloud cloud = new Cloud();
+//                    boolean result = cloud.createUser(new_username, new_password);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Cloud cloud = new Cloud();
+                            final boolean result;
+                            try {
+                                result = cloud.createUser(new_username, new_password);
+
+                                if(!result) {
+                                    /*
+                                     * If validation fails, display a toast
+                                     */
+                                    v.post(new Runnable() {
+
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(v.getContext(),
+                                                    R.string.newuser_fail,
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                } else{
+                                    dialog2.dismiss();
+                                }
+                            } catch (Exception e) {
+                                // Error condition! Something went wrong
+                                Log.e("CreateUserButton", "Something went wrong when creating user", e);
+                                v.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(v.getContext(), R.string.newuser_fail, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    }).start();
+
+                }else{
+                    Toast.makeText(v.getContext(), R.string.password_val, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+    }
+
     public void onHowToPlay(View view){
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(view.getContext());
@@ -219,6 +309,7 @@ public class MainActivity extends AppCompatActivity {
         bundle.putStringArray(NAMES, names);
 
         bundle.putBoolean(POPUPACTIVE, popupActive);
+        bundle.putBoolean(USERPOPUP, userPopUp);
     }
 
     /**
@@ -231,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
         playerTwoN = names[1];
 
         popupActive = bundle.getBoolean(POPUPACTIVE);
+        userPopUp = bundle.getBoolean(USERPOPUP);
     }
 
     private String toTitleCase(String input) {
