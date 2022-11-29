@@ -43,6 +43,8 @@ public class AvailableGamesActivity extends DialogFragment {
             }
         });
 
+        builder.setPositiveButton("Create Game",null);
+
 
         // Find the list view
         ListView list = (ListView)view.findViewById(R.id.listGames);
