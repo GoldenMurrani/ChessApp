@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String NAMES = "MainActivity.Names";
     private final static String POPUPACTIVE = "MainActivity.PopupActive";
     private final static String USERPOPUP = "MainActivity.UserPopup";
+    private static final String CHECKBOX = "MainActivity.CheckBox";
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog.Builder dialogBuilder2;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog dialog2;
     private EditText startpopup_user, startpopup_pass, new_user, new_pass, new_pass2;
     private Button startpopup_login, startpopup_cancel, startpopup_newuser, newuser_create, newuser_cancel;
+    private CheckBox check_box;
 
     private String username = "";
     private String password = "";
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
      */
     boolean popupActive = false;
     boolean userPopUp = false;
+    boolean checkbox = false;
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder = new AlertDialog.Builder(this);
         final View startPopUp = getLayoutInflater().inflate(R.layout.startpopup, null);
 
+        check_box = (CheckBox) startPopUp.findViewById(R.id.checkBox);
         startpopup_user = (EditText) startPopUp.findViewById(R.id.startpopup_p_one);
         startpopup_pass = (EditText) startPopUp.findViewById(R.id.startpopup_p_two);
 
@@ -81,6 +86,20 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder.setView(startPopUp);
         dialog = dialogBuilder.create();
         dialog.show();
+
+        check_box.setChecked(checkbox);
+
+        if(checkbox){
+            startpopup_user.setText(username);
+            startpopup_pass.setText(password);
+        }
+
+        check_box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkbox = !checkbox;
+            }
+        });
 
         startpopup_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,8 +115,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 popupActive = false;
-                username = "";
-                password = "";
+
+                if(!checkbox){
+                    username = "";
+                    password = "";
+                }
                 dialog.dismiss();
             }
         });
@@ -142,11 +164,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onLogin(View view) {
         popupActive = false;
-
-        Bundle bundle_names = new Bundle();
-        bundle_names.putString("player_name_1", username);
-        bundle_names.putString("player_name_2", password);
-
 
         new Thread(new Runnable() {
             @Override
@@ -298,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
 
         bundle.putBoolean(POPUPACTIVE, popupActive);
         bundle.putBoolean(USERPOPUP, userPopUp);
+        bundle.putBoolean(CHECKBOX, checkbox);
     }
 
     /**
@@ -311,6 +329,7 @@ public class MainActivity extends AppCompatActivity {
 
         popupActive = bundle.getBoolean(POPUPACTIVE);
         userPopUp = bundle.getBoolean(USERPOPUP);
+        checkbox = bundle.getBoolean(CHECKBOX);
     }
 
     private String toTitleCase(String input) {

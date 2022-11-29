@@ -42,8 +42,8 @@ public class AvailableGamesActivity extends DialogFragment {
         // Find the list view
         ListView list = (ListView)view.findViewById(R.id.listGames);
 
-        final Cloud.CatalogAdapter adapter = new Cloud.CatalogAdapter(list);
-        list.setAdapter(adapter);
+        /*final Cloud.CatalogAdapter adapter = new Cloud.CatalogAdapter(list);
+        list.setAdapter(adapter);*/
 
         list.setOnItemClickListener(new ListView.OnItemClickListener() {
 
@@ -52,7 +52,7 @@ public class AvailableGamesActivity extends DialogFragment {
                                     int position, long id) {
 
                 // Get the id of the one we want to load
-                String catId = adapter.getId(position);
+                /*String catId = adapter.getId(position);*/
 
                 // Dismiss the dialog box
                 dlg.dismiss();
