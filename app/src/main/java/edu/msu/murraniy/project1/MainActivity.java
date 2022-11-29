@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText startpopup_user, startpopup_pass, new_user, new_pass, new_pass2;
     private Button startpopup_login, startpopup_cancel, startpopup_newuser, newuser_create, newuser_cancel;
 
-    private String playerOneN = "Player 1";
-    private String playerTwoN = "Player 2";
+    private String username = "";
+    private String password = "";
     private String new_username, new_password, new_passwordA;
     /**
      * popupActive used to display popup on changing device orientation.
@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (popupActive){
             createNewContactDialog();
-            startpopup_user.setText(playerOneN);
-            startpopup_pass.setText(playerTwoN);
+            startpopup_user.setText(username);
+            startpopup_pass.setText(password);
         }
         if(userPopUp){
             createNewUserContactDialog();
@@ -85,15 +85,8 @@ public class MainActivity extends AppCompatActivity {
         startpopup_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playerOneN = startpopup_user.getText().toString();
-                playerTwoN = startpopup_pass.getText().toString();
-
-                if(playerOneN.matches("")){
-                    playerOneN = "Player 1";
-                }
-                if(playerTwoN.matches("")){
-                    playerTwoN = "Player 2";
-                }
+                username = startpopup_user.getText().toString();
+                password = startpopup_pass.getText().toString();
 
                 onLogin(v);
             }
@@ -103,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 popupActive = false;
-                playerOneN = "";
-                playerTwoN = "";
+                username = "";
+                password = "";
                 dialog.dismiss();
             }
         });
@@ -131,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Fires right as the text is being changed (even supplies the range of text)
-                playerOneN = startpopup_user.getText().toString();
-                playerTwoN = startpopup_pass.getText().toString();
+                username = startpopup_user.getText().toString();
+                password = startpopup_pass.getText().toString();
             }
 
             @Override
@@ -152,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AvailableGamesActivity.class);
 
         Bundle bundle_names = new Bundle();
-        bundle_names.putString("player_name_1", playerOneN);
-        bundle_names.putString("player_name_2", playerTwoN);
+        bundle_names.putString("player_name_1", username);
+        bundle_names.putString("player_name_2", password);
 
         intent.putExtras(bundle_names);
 
@@ -163,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 Cloud cloud = new Cloud();
                 final boolean ok;
                 try {
-                    ok = cloud.validateUser(playerOneN, playerTwoN);
+                    ok = cloud.validateUser(username, password);
 
                     if(!ok) {
                         /*
@@ -300,8 +293,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void saveInstanceState(Bundle bundle) {
         String [] names = new String[2];
-        names[0] = playerOneN;
-        names[1] = playerTwoN;
+        names[0] = username;
+        names[1] = password;
         bundle.putStringArray(NAMES, names);
 
         bundle.putBoolean(POPUPACTIVE, popupActive);
@@ -314,8 +307,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void loadInstanceState(Bundle bundle) {
         String [] names = bundle.getStringArray(NAMES);
-        playerOneN = names[0];
-        playerTwoN = names[1];
+        username = names[0];
+        password = names[1];
 
         popupActive = bundle.getBoolean(POPUPACTIVE);
         userPopUp = bundle.getBoolean(USERPOPUP);

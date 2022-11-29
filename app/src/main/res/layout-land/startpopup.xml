@@ -8,13 +8,13 @@
     android:orientation="horizontal">
 
     <ImageView
-        tools:ignore="contentDescription"
         android:id="@+id/startpopupicon"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-
         android:layout_weight="5"
-        app:srcCompat="@drawable/chess_icon" />
+
+        app:srcCompat="@drawable/chess_icon"
+        tools:ignore="contentDescription" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -27,41 +27,54 @@
             android:id="@+id/startpopup_p_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:gravity="center_horizontal"
             android:hint="@string/p1name"
             android:inputType="text"
             android:saveEnabled="true"
             android:textAlignment="center"
             android:textColorHint="#78909C"
-            android:textSize="20sp"
-            android:autofillHints="" />
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/startpopup_p_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:gravity="center_horizontal"
             android:hint="@string/p2name"
             android:inputType="text"
             android:saveEnabled="true"
             android:textAlignment="center"
             android:textColorHint="#78909C"
-            android:textSize="20sp"
-            android:autofillHints="" />
+            android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/cancelButton"
+        <CheckBox
+            android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:text="@string/rememberuser" />
 
         <Button
             android:id="@+id/loginButton"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/startmatch"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:text="@string/startmatch" />
+
+        <Button
+            android:id="@+id/newUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/newuser" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel" />
+
     </LinearLayout>
 
 </LinearLayout>

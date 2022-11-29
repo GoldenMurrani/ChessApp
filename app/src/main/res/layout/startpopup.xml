@@ -42,11 +42,13 @@
         android:textColorHint="#78909C"
         android:textSize="24sp"
         android:autofillHints="" />
+
     <CheckBox
+        android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/rememberuser"
-        android:layout_weight="0.005"/>
+        android:layout_weight="0.005"
+        android:text="@string/rememberuser" />
 
     <LinearLayout
         android:layout_width="match_parent"
