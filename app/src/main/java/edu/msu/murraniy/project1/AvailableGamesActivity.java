@@ -18,6 +18,11 @@ public class AvailableGamesActivity extends DialogFragment {
 
     private AlertDialog dlg;
 
+
+
+    private volatile String username;
+    private volatile String password;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -42,8 +47,10 @@ public class AvailableGamesActivity extends DialogFragment {
         // Find the list view
         ListView list = (ListView)view.findViewById(R.id.listGames);
 
-        /*final Cloud.CatalogAdapter adapter = new Cloud.CatalogAdapter(list);
-        list.setAdapter(adapter);*/
+        final Cloud.CatalogAdapter adapter = new Cloud.CatalogAdapter(list);
+        adapter.setUser(username);
+        adapter.setPass(password);
+        list.setAdapter(adapter);
 
         list.setOnItemClickListener(new ListView.OnItemClickListener() {
 
@@ -68,5 +75,13 @@ public class AvailableGamesActivity extends DialogFragment {
 
         dlg = builder.create();
         return dlg;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

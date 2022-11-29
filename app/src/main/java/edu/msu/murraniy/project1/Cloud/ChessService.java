@@ -16,12 +16,12 @@ import static edu.msu.murraniy.project1.Cloud.Cloud.CREATEUSER_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.GETGAMESTATE_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.MOVE_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.VALIDATEUSER_PATH;
-import static edu.msu.murraniy.project1.Cloud.Cloud.GETGAMESTATE_PATH;
+import static edu.msu.murraniy.project1.Cloud.Cloud.GETGAMES_PATH;
 
 
 public interface ChessService {
 
-    @GET(GETGAMESTATE_PATH)
+    @GET(GETGAMES_PATH)
     Call<Catalog> getCatalog(
             @Query("user") String userId,
             @Query("magic") String magic,

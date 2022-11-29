@@ -9,7 +9,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:contentDescription="@string/dummy"
-        app:srcCompat="@drawable/chess_icon"/>
+        app:srcCompat="@drawable/knight_black"/>
 
     <TextView
         android:id="@+id/textItem"
