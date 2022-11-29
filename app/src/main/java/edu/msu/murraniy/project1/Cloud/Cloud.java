@@ -187,7 +187,7 @@ public class Cloud {
                             throw new Exception(msg);
                         }
                         if (catalog.getItems().isEmpty()) {
-                            String msg = "Catalog does not contain any hattings.";
+                            String msg = "Catalog does not contain any game.";
                             throw new Exception(msg);
                         }
 
