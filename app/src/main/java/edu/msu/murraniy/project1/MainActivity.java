@@ -142,13 +142,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onLogin(View view) {
         popupActive = false;
-        Intent intent = new Intent(this, AvailableGamesActivity.class);
 
         Bundle bundle_names = new Bundle();
         bundle_names.putString("player_name_1", username);
         bundle_names.putString("player_name_2", password);
 
-        intent.putExtras(bundle_names);
 
         new Thread(new Runnable() {
             @Override
@@ -172,7 +170,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     } else{
-                        startActivity(intent);
+                        AvailableGamesActivity availableGames = new AvailableGamesActivity();
+                        availableGames.show(getSupportFragmentManager(), "load");
                     }
                 } catch (Exception e) {
                     // Error condition! Something went wrong

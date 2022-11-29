@@ -37,4 +37,7 @@
     <string name="validation_fail">Incorrect Username or Password</string>
     <string name="password_val">Passwords Must Match</string>
     <string name="newuser_fail">Failed to Create New User</string>
+    <string name="shoosegame">Choose or Create a Game to Join</string>
+    <string name="availgames">Available Games</string>
+    <string name="dummy">Dummy String</string>
 </resources>
