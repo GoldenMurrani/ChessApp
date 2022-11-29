@@ -50,6 +50,7 @@ public interface ChessService {
             @Field("game") int gameId,
             @Field("piece") int pieceId,
             @Field("x") int pieceX,
-            @Field("y") int pieceY
+            @Field("y") int pieceY,
+            @Field("turn") int turn
     );
 }

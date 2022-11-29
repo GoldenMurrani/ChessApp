@@ -119,11 +119,11 @@ public class Cloud {
     }
 
     // Updates the game with the most recent move
-    public boolean movePiece(int gameId, int pieceId, int pieceX, int pieceY) {
+    public boolean movePiece(int gameId, int pieceId, int pieceX, int pieceY, int turn) {
         ChessService service = retrofit.create(ChessService.class);
 
         try{
-            Response<Move> response = service.movePiece(MAGIC, gameId, pieceId, pieceX, pieceY).execute();
+            Response<Move> response = service.movePiece(MAGIC, gameId, pieceId, pieceX, pieceY, turn).execute();
 
             if(response.isSuccessful()){
                 Move result = response.body();
