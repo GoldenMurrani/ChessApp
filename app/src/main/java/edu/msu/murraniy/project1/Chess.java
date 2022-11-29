@@ -126,7 +126,7 @@ public class Chess {
             piece.setUnique_id(i);
         }
 
-        startingPlacement();
+        placePieces();
     }
 
     public void draw(Canvas canvas) {
@@ -168,8 +168,8 @@ public class Chess {
 
     }
 
-    // Place the chess pieces in their starting positions
-    public void startingPlacement() {
+    // Place the chess pieces in their positions
+    public void placePieces() {
         for (int i = 0; i < 32; i++) {
             ChessPiece piece = pieces.get(i);
             int x = piece.getChessX();
@@ -467,4 +467,10 @@ public class Chess {
             turn = Team.BLACK;
         }
     }
+
+    // Used to update the database when a move is made, called upon snap
+    public void makeMove(int pieceId, int pieceX, int pieceY) {
+
+    }
+
 }

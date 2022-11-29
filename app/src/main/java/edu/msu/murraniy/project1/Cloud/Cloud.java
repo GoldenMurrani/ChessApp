@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import edu.msu.murraniy.project1.Chess;
 import edu.msu.murraniy.project1.Cloud.Models.CreateUser;
+import edu.msu.murraniy.project1.Cloud.Models.Move;
 import edu.msu.murraniy.project1.Cloud.Models.ValidateUser;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -31,6 +32,7 @@ public class Cloud {
     public static final String DELETEGAME_PATH = "chess-deletegame.php";
     public static final String GETGAMESTATE_PATH = "chess-getgamestate.php";
     public static final String VALIDATEUSER_PATH = "chess-validateuser.php";
+    public static final String MOVE_PATH = "chess-move.php";
     private static final String UTF8 = "UTF-8";
 
     private static Retrofit retrofit = new Retrofit.Builder()
@@ -112,6 +114,35 @@ public class Cloud {
             return false;
         }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
             Log.e("ValidateUser", "Runtime Exception: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Updates the game with the most recent move
+    public boolean movePiece(int gameId, int pieceId, int pieceX, int pieceY) {
+        ChessService service = retrofit.create(ChessService.class);
+
+        try{
+            Response<Move> response = service.movePiece(MAGIC, gameId, pieceId, pieceX, pieceY).execute();
+
+            if(response.isSuccessful()){
+                Move result = response.body();
+
+                if (result.getStatus() != null && result.getStatus().equals("yes")) {
+                    return true;
+                }
+                Log.e("Move", "Failed to validate, message = '" + result.getMessage() + "'");
+                return false;
+
+            }
+            Log.e("Move", "Failed to create, message = '" + response.code() + "'");
+            return false;
+
+        }catch (IOException e){
+            Log.e("Move", "Exception occurred while trying to move piece!", e);
+            return false;
+        }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
+            Log.e("Move", "Runtime Exception: " + e.getMessage());
             return false;
         }
     }

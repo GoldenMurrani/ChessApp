@@ -3,6 +3,7 @@ package edu.msu.murraniy.project1.Cloud;
 import edu.msu.murraniy.project1.Cloud.Models.Catalog;
 import edu.msu.murraniy.project1.Cloud.Models.CreateUser;
 
+import edu.msu.murraniy.project1.Cloud.Models.Move;
 import edu.msu.murraniy.project1.Cloud.Models.ValidateUser;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -13,6 +14,7 @@ import retrofit2.http.Query;
 
 import static edu.msu.murraniy.project1.Cloud.Cloud.CREATEUSER_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.GETGAMESTATE_PATH;
+import static edu.msu.murraniy.project1.Cloud.Cloud.MOVE_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.VALIDATEUSER_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.GETGAMESTATE_PATH;
 
@@ -39,5 +41,15 @@ public interface ChessService {
             @Query("user") String userId,
             @Query("magic") String magic,
             @Query("pw") String password
+    );
+
+    @FormUrlEncoded
+    @POST(MOVE_PATH)
+    Call<Move> movePiece(
+            @Field("magic") String magic,
+            @Field("game") int gameId,
+            @Field("piece") int pieceId,
+            @Field("x") int pieceX,
+            @Field("y") int pieceY
     );
 }
