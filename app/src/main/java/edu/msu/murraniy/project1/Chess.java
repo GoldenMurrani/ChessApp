@@ -9,10 +9,14 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import edu.msu.murraniy.project1.Cloud.Cloud;
 
 public class Chess {
     // PUBLIC enumeration to represent teams
@@ -80,6 +84,9 @@ public class Chess {
     private final static String LOCATIONS = "Chess.locations";
     private final static String IDS = "Chess.ids";
     private final static String PLAYERTURN = "Chess.PlayerTurn";
+
+    // The game ID for multiplayer purposes
+    private int gameId;
 
 
     public Chess(Context context, ChessView view) {
@@ -215,6 +222,8 @@ public class Chess {
                             dragging.setChessY(square.getChessY());
                             // Play placement sound when snapping
                             mediaPlayer.start();
+                            // Send this move over the cloud
+                            makeMove(dragging.getId(), dragging.getChessX(), dragging.getChessY());
                             view.invalidate();
                             break;
                         }
@@ -470,7 +479,21 @@ public class Chess {
 
     // Used to update the database when a move is made, called upon snap
     public void makeMove(int pieceId, int pieceX, int pieceY) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Cloud cloud = new Cloud();
+                final boolean ok;
+                try {
+                    ok = cloud.movePiece(gameId, pieceId, pieceX, pieceY);
 
+                } catch (Exception e) {
+                    // Error condition! Something went wrong
+                    Log.e("makeMove", "Something went wrong when making a move", e);
+
+                }
+            }
+        }).start();
     }
 
 }
