@@ -17,21 +17,27 @@ import java.util.ArrayList;
 
 import edu.msu.murraniy.project1.Chess;
 import edu.msu.murraniy.project1.Cloud.Models.CheckTurn;
+import edu.msu.murraniy.project1.Cloud.Models.Catalog;
 import edu.msu.murraniy.project1.Cloud.Models.CreateUser;
+import edu.msu.murraniy.project1.Cloud.Models.Game;
 import edu.msu.murraniy.project1.Cloud.Models.Move;
 import edu.msu.murraniy.project1.Cloud.Models.ValidateUser;
+import edu.msu.murraniy.project1.R;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 @SuppressWarnings("deprecation")
 public class Cloud {
+    private static final String USER = "";
+    private static final String PASSWORD = "";
     private static final String MAGIC = "NechAtHa6RuzeR8x";
     private static final String BASE_URL = "https://webdev.cse.msu.edu/~kroskema/cse476/project2/";
     public static final String CREATEUSER_PATH = "chess-createuser.php";
     public static final String CREATEGAME_PATH = "chess-creategame.php";
     public static final String DELETEGAME_PATH = "chess-deletegame.php";
     public static final String GETGAMESTATE_PATH = "chess-getgamestate.php";
+    public static final String GETGAMES_PATH = "chess-getgames.php";
     public static final String VALIDATEUSER_PATH = "chess-validateuser.php";
     public static final String MOVE_PATH = "chess-move.php";
     public static final String CHECKTURN_PATH = "chess-checkturn.php";
@@ -102,6 +108,7 @@ public class Cloud {
                 ValidateUser result = response.body();
 
                 if (result.getStatus() != null && result.getStatus().equals("yes")) {
+
                     return true;
                 }
                 Log.e("ValidateUser", "Failed to validate, message = '" + result.getMessage() + "'");
@@ -177,5 +184,135 @@ public class Cloud {
             return null;
         }
     }
+
+    /**
+     * An adapter so that list boxes can display a list of filenames from
+     * the cloud server.
+     */
+    public static class CatalogAdapter extends BaseAdapter {
+
+        private String user = "";
+        private String pass = "";
+
+        /**
+         * The items we display in the list box. Initially this is
+         * null until we get items from the server.
+         */
+        private Catalog catalog = new Catalog("", new ArrayList(), "");
+
+        /**
+         * Constructor
+         */
+        public CatalogAdapter(final View view) {
+            // Create a thread to load the catalog
+            new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    try{
+                        catalog = getCatalog();
+
+                        if (catalog.getStatus().equals("no")) {
+                            String msg = "Loading catalog returned status 'no'! Message is = '" + catalog.getMessage() + "'";
+                            throw new Exception(msg);
+                        }
+                        if (catalog.getItems().isEmpty()) {
+                            String msg = "No available games found.";
+                            throw new Exception(msg);
+                        }
+
+                        view.post(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                // Tell the adapter the data set has been changed
+                                notifyDataSetChanged();
+                            }
+
+                        });
+                    }catch (Exception e){
+                        // Error condition! Something went wrong
+                        Log.e("CatalogAdapter", "Something went wrong when loading the catalog", e);
+                        view.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                String string;
+                                // make sure that there is a message in the catalog
+                                // if there isn't use the message from the exception
+                                if (catalog.getMessage() == null) {
+                                    string = e.getMessage();
+                                } else {
+                                    string = catalog.getMessage();
+                                }
+                                Toast.makeText(view.getContext(), string, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+            }).start();
+        }
+
+        public Catalog getCatalog() throws IOException, RuntimeException {
+            ChessService service = retrofit.create(ChessService.class);
+
+            Response<Catalog> response = service.getCatalog(user, MAGIC, pass).execute();
+            // check if request failed
+            if (!response.isSuccessful()) {
+                Log.e("getCatalog", "Failed to get catalog, response code is = " + response.code());
+                return new Catalog("no", new ArrayList<Game>(), "Server error " + response.code());
+            }
+            Catalog catalog = response.body();
+            if (catalog.getStatus().equals("no")) {
+                String string = "Failed to get catalog, msg is = " + catalog.getMessage();
+                Log.e("getCatalog", string);
+                return new Catalog("no", new ArrayList<Game>(), string);
+            };
+            if (catalog.getItems() == null) {
+                catalog.setItems(new ArrayList<Game>());
+            }
+            return catalog;
+        }
+
+        @Override
+        public int getCount() {
+            return catalog.getItems().size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return catalog.getItems().get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        public void setUser(String user) {
+            user = user.trim();
+            this.user = user;
+        }
+
+        public void setPass(String pass) {
+            pass = pass.trim();
+            this.pass = pass;
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            if(view == null) {
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.catalog_item, parent, false);
+            }
+
+            TextView tv = (TextView)view.findViewById(R.id.textItem);
+            tv.setText(catalog.getItems().get(position).getName());
+
+
+            return view;
+        }
+
+    }
+
 }
 
