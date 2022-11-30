@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import edu.msu.murraniy.project1.Cloud.Cloud;
@@ -43,7 +44,13 @@ public class AvailableGamesActivity extends DialogFragment {
             }
         });
 
-        builder.setPositiveButton("Create Game",null);
+        builder.setPositiveButton(R.string.create_game, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                // Cancel just closes the dialog box
+            }
+        });
+
 
 
         // Find the list view

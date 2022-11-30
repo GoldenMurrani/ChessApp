@@ -12,7 +12,7 @@ public final class Game {
     private String id;
 
     @Attribute
-    private String player1id;
+    private String user1;
 
     public String getId() {
         return id;
@@ -23,15 +23,15 @@ public final class Game {
     }
 
     public String getName() {
-        return player1id;
+        return user1;
     }
 
     public void setName(String name) {
-        this.player1id = name;
+        this.user1 = name;
     }
 
     public Game(String id, String name) {
-        this.player1id = name;
+        this.user1 = name;
         this.id = id;
     }
 
