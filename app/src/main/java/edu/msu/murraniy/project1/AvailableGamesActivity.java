@@ -5,11 +5,13 @@ import androidx.fragment.app.DialogFragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -17,7 +19,7 @@ import android.widget.Toast;
 
 import edu.msu.murraniy.project1.Cloud.Cloud;
 
-public class AvailableGamesActivity extends DialogFragment {
+public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment {
 
     private AlertDialog dlg;
 
@@ -54,7 +56,7 @@ public class AvailableGamesActivity extends DialogFragment {
                         try {
                             gameID = cloud.createGame(username, password);
 
-                            if(gameID != -1) {
+                            if(gameID == -1) {
                                 /*
                                  * If game creation fails, display a toast
                                  */
@@ -77,7 +79,7 @@ public class AvailableGamesActivity extends DialogFragment {
                             }
                         } catch (Exception e) {
                             // Error condition! Something went wrong
-                            Log.e("CreateUserButton", "Something went wrong when creating user", e);
+                            Log.e("CreateUserButton", "Something went wrong when creating newgame", e);
                             view.post(new Runnable() {
                                 @Override
                                 public void run() {

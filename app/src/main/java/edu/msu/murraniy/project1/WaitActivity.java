@@ -30,6 +30,7 @@ public class WaitActivity extends DialogFragment {
     private volatile String player2 = null;
 
     private volatile boolean cancel = false;
+    private volatile boolean start = false;
 
     public int getGameID() {
         return gameID;
@@ -53,14 +54,15 @@ public class WaitActivity extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 // Cancel just closes the dialog box
+                dialog.cancel();
             }
         });
 
         // Destroy the game if the host decides to stop waiting
-        DialogInterface.OnDismissListener onDismissListener;
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
-            public void onDismiss(DialogInterface dialogInterface) {
+            public void onCancel(DialogInterface dialogInterface) {
+                cancel = true;
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -69,15 +71,20 @@ public class WaitActivity extends DialogFragment {
                         try {
                             result = cloud.deleteGame(gameID);
 
+                            if (!result) {
+                                Log.e("StopWait", "Game failed to be deleted!");
+                            }
+
                         } catch (Exception e) {
                             // Error condition! Something went wrong
-                            Log.e("StopWait", "Something went wrong dismissing wait", e);
+                            Log.e("StopWait", "Something went wrong canceling wait", e);
                         }
                     }
                 }).start();
 
             }
         });
+
 
         // Thread to periodically check for if other player joined
         new Thread(new Runnable() {
@@ -97,13 +104,16 @@ public class WaitActivity extends DialogFragment {
                             player2 = cloud.checkJoin(gameID);
                             if (player2 != null) {
                                 cancel = true;
+                                start = true;
                                 // Starting process of moving into game
                             }
                         }
                     }).start();
                 }
                 // Starting process of moving into game
-                ((MainActivity)getActivity()).startChess(player1, player2, gameID, 1);
+                if (start) {
+                    ((MainActivity) getActivity()).startChess(player1, player2, gameID, 1);
+                }
 
             }
         }).start();
