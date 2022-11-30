@@ -7,11 +7,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import edu.msu.murraniy.project1.Cloud.Cloud;
 
@@ -19,15 +21,12 @@ public class AvailableGamesActivity extends DialogFragment {
 
     private AlertDialog dlg;
 
-
-
     private volatile String username;
     private volatile String password;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
 
         builder.setTitle(R.string.availgames);
 
@@ -47,7 +46,41 @@ public class AvailableGamesActivity extends DialogFragment {
         builder.setPositiveButton(R.string.create_game, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                // Cancel just closes the dialog box
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Cloud cloud = new Cloud();
+                        final boolean result;
+                        try {
+                            result = cloud.createGame(username, password);
+
+                            if(!result) {
+                                /*
+                                 * If game creation fails, display a toast
+                                 */
+                                view.post(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getView().getContext(),
+                                                R.string.newgame_fail,
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else{
+                            }
+                        } catch (Exception e) {
+                            // Error condition! Something went wrong
+                            Log.e("CreateUserButton", "Something went wrong when creating user", e);
+                            view.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(view.getContext(), R.string.newuser_fail, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                }).start();
             }
         });
 

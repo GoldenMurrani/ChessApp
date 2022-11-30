@@ -2,6 +2,7 @@ package edu.msu.murraniy.project1.Cloud;
 
 import edu.msu.murraniy.project1.Cloud.Models.Catalog;
 import edu.msu.murraniy.project1.Cloud.Models.CheckTurn;
+import edu.msu.murraniy.project1.Cloud.Models.CreateGame;
 import edu.msu.murraniy.project1.Cloud.Models.CreateUser;
 
 import edu.msu.murraniy.project1.Cloud.Models.Move;
@@ -14,6 +15,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 import static edu.msu.murraniy.project1.Cloud.Cloud.CHECKTURN_PATH;
+import static edu.msu.murraniy.project1.Cloud.Cloud.CREATEGAME_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.CREATEUSER_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.GETGAMESTATE_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.MOVE_PATH;
@@ -22,6 +24,14 @@ import static edu.msu.murraniy.project1.Cloud.Cloud.GETGAMES_PATH;
 
 
 public interface ChessService {
+
+    @FormUrlEncoded
+    @POST(CREATEGAME_PATH)
+    Call<CreateGame> createGame(
+            @Field("user") String userId,
+            @Field("magic") String magic,
+            @Field("pw") String password
+    );
 
     @GET(GETGAMES_PATH)
     Call<Catalog> getCatalog(

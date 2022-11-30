@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import edu.msu.murraniy.project1.Chess;
 import edu.msu.murraniy.project1.Cloud.Models.CheckTurn;
 import edu.msu.murraniy.project1.Cloud.Models.Catalog;
+import edu.msu.murraniy.project1.Cloud.Models.CreateGame;
 import edu.msu.murraniy.project1.Cloud.Models.CreateUser;
 import edu.msu.murraniy.project1.Cloud.Models.Game;
 import edu.msu.murraniy.project1.Cloud.Models.Move;
@@ -47,6 +48,44 @@ public class Cloud {
             .baseUrl(BASE_URL)
             .addConverterFactory(SimpleXmlConverterFactory.create())
             .build();
+
+    public boolean createGame(String username, String password){
+        username = username.trim();
+        password = password.trim();
+
+        if(username.length() == 0){
+            return false;
+        }
+        if(password.length() == 0){
+            return false;
+        }
+
+        ChessService service = retrofit.create(ChessService.class);
+
+        try{
+            Response<CreateGame> response = service.createGame(username, MAGIC, password).execute();
+
+            if(response.isSuccessful()){
+                CreateGame result = response.body();
+
+                if (result.getStatus() != null && result.getStatus().equals("yes")) {
+                    return true;
+                }
+                Log.e("CreateGame", "Failed to create, message = '" + result.getMessage() + "'");
+                return false;
+
+            }
+            Log.e("CreateGame", "Failed to create, message = '" + response.code() + "'");
+            return false;
+
+        }catch (IOException e){
+            Log.e("CreateGame", "Exception occurred while trying to create a new game!", e);
+            return false;
+        }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
+            Log.e("CreateGame", "Runtime Exception: " + e.getMessage());
+            return false;
+        }
+    }
 
     public boolean createUser(String username, String password) {
 
