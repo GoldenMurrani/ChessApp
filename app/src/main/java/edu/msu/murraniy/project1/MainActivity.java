@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private String username = "";
     private String password = "";
     private String new_username, new_password, new_passwordA;
+    private String player2 = null;
+
     /**
      * popupActive used to display popup on changing device orientation.
      */
@@ -353,6 +355,23 @@ public class MainActivity extends AppCompatActivity {
         }
         return sb.toString();
     }
+
+
+    public void startChess(String player1, String player2, int gameID, int player) {
+        popupActive = false;
+        Intent intent = new Intent(this, ChessActivity.class);
+
+        Bundle bundle_chess = new Bundle();
+        bundle_chess.putString("player_name_1", player1);
+        bundle_chess.putString("player_name_2", player2);
+        bundle_chess.putInt("gameID", gameID);
+        bundle_chess.putInt("player", player);
+
+        intent.putExtras(bundle_chess);
+
+        startActivity(intent);
+    }
+
 
 
 }

@@ -43,6 +43,9 @@ public class ChessActivity extends AppCompatActivity {
 
     private String messageText;
 
+    private int gameID;
+    private int player;
+
     /**
      * Get the puzzle view
      * @return PuzzleView reference
@@ -60,8 +63,13 @@ public class ChessActivity extends AppCompatActivity {
         playerOnen = temp.getString("player_name_1");
         playerTwon = temp.getString("player_name_2");
 
+        gameID = temp.getInt("gameID");
+        player = temp.getInt("player");
+
+
         chessView = (ChessView)this.findViewById(R.id.chessView);
         chessView.setActivity(this);
+        chessView.setChessGameId(gameID);
 
         tv1 = (TextView)findViewById(R.id.playerText);
 

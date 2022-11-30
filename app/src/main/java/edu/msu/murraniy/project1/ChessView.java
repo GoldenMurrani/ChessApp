@@ -113,4 +113,6 @@ public class ChessView extends View {
         chess.loadInstanceState(bundle);
     }
 
+    public void setChessGameId(int gameId) { this.chess.setGameId(gameId);}
+
 }

@@ -68,9 +68,12 @@ public class AvailableGamesActivity extends DialogFragment {
                                     }
                                 });
                             } else{
+                                dlg.dismiss();
+
                                 WaitActivity waitActivity = new WaitActivity();
                                 waitActivity.setGameID(gameID);
-                                waitActivity.show(getParentFragmentManager(), "wait");
+                                waitActivity.setPlayer1(username);
+                                waitActivity.show(getActivity().getSupportFragmentManager(), "wait");
                             }
                         } catch (Exception e) {
                             // Error condition! Something went wrong

@@ -16,6 +16,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 
 import edu.msu.murraniy.project1.Chess;
+import edu.msu.murraniy.project1.Cloud.Models.CheckJoin;
 import edu.msu.murraniy.project1.Cloud.Models.CheckTurn;
 import edu.msu.murraniy.project1.Cloud.Models.Catalog;
 import edu.msu.murraniy.project1.Cloud.Models.CreateGame;
@@ -38,6 +39,7 @@ public class Cloud {
     public static final String CREATEUSER_PATH = "chess-createuser.php";
     public static final String CREATEGAME_PATH = "chess-creategame.php";
     public static final String DELETEGAME_PATH = "chess-deletegame.php";
+    public static final String CHECKJOIN_PATH = "chess-checkjoin.php";
     public static final String GETGAMESTATE_PATH = "chess-getgamestate.php";
     public static final String GETGAMES_PATH = "chess-getgames.php";
     public static final String VALIDATEUSER_PATH = "chess-validateuser.php";
@@ -223,6 +225,37 @@ public class Cloud {
             Log.e("CheckTurn", "Runtime Exception: " + e.getMessage());
             return null;
         }
+    }
+
+    // Checks if a player has joined your hosted game
+    public String checkJoin(int gameId) {
+
+        ChessService service = retrofit.create(ChessService.class);
+
+        try{
+            Response<CheckJoin> response = service.checkJoin(MAGIC, gameId).execute();
+
+            if(response.isSuccessful()){
+                CheckJoin result = response.body();
+
+                if (result.getStatus() != null && result.getStatus().equals("yes")) {
+                    return result.getPlayer2();
+                }
+                Log.e("CheckJoin", "Failed to validate, message = '" + result.getMessage() + "'");
+                return null;
+
+            }
+            Log.e("CheckJoin", "Failed to create, message = '" + response.code() + "'");
+            return null;
+
+        }catch (IOException e){
+            Log.e("CheckJoin", "Exception occurred while trying to check join!", e);
+            return null;
+        }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
+            Log.e("CheckJoin", "Runtime Exception: " + e.getMessage());
+            return null;
+        }
+
     }
 
     // Deletes a game

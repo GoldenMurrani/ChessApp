@@ -87,6 +87,7 @@ public class Chess {
 
     // The game ID for multiplayer purposes
     private int gameId;
+    public void setGameId(int gameId) { this.gameId = gameId; }
 
     //
     public static class TurnInfo {
