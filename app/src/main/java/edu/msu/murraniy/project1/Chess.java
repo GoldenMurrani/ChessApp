@@ -88,6 +88,21 @@ public class Chess {
     // The game ID for multiplayer purposes
     private int gameId;
 
+    //
+    public static class TurnInfo {
+        public TurnInfo(int pieceID, int pieceX, int pieceY, int turn) {
+            this.pieceID = pieceID;
+            this.pieceX = pieceX;
+            this.pieceY = pieceY;
+            this.turn = turn;
+        }
+
+        public int pieceID;
+        public int pieceX;
+        public int pieceY;
+        public int turn;
+    }
+
 
     public Chess(Context context, ChessView view) {
         parentView = view;
@@ -222,6 +237,8 @@ public class Chess {
                             dragging.setChessY(square.getChessY());
                             // Play placement sound when snapping
                             mediaPlayer.start();
+                            // Mark turn change
+                            parentView.changeChessTurn();
                             // Send this move over the cloud
                             makeMove(dragging.getId(), dragging.getChessX(), dragging.getChessY());
                             view.invalidate();
@@ -268,7 +285,8 @@ public class Chess {
                         }
                     }
 
-                    parentView.changeChessTurn();
+                    //moved to snapping section temp
+                    //parentView.changeChessTurn();
                 }
 
             case MotionEvent.ACTION_CANCEL:
@@ -479,13 +497,14 @@ public class Chess {
 
     // Used to update the database when a move is made, called upon snap
     public void makeMove(int pieceId, int pieceX, int pieceY) {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Cloud cloud = new Cloud();
                 final boolean ok;
                 try {
-                    ok = cloud.movePiece(gameId, pieceId, pieceX, pieceY);
+                    ok = cloud.movePiece(gameId, pieceId, pieceX, pieceY, turn.ordinal());
 
                 } catch (Exception e) {
                     // Error condition! Something went wrong
@@ -494,6 +513,11 @@ public class Chess {
                 }
             }
         }).start();
+    }
+
+    // Gameplay loop that checks the database periodically
+    public void gameplayLoop() {
+
     }
 
 }

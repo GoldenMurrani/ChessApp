@@ -2,16 +2,15 @@ package edu.msu.murraniy.project1;
 
 import androidx.fragment.app.DialogFragment;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import edu.msu.murraniy.project1.Cloud.Cloud;
@@ -19,6 +18,11 @@ import edu.msu.murraniy.project1.Cloud.Cloud;
 public class AvailableGamesActivity extends DialogFragment {
 
     private AlertDialog dlg;
+
+
+
+    private volatile String username;
+    private volatile String password;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -40,12 +44,22 @@ public class AvailableGamesActivity extends DialogFragment {
             }
         });
 
+        builder.setPositiveButton(R.string.create_game, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                // Cancel just closes the dialog box
+            }
+        });
+
+
 
         // Find the list view
         ListView list = (ListView)view.findViewById(R.id.listGames);
 
-        /*final Cloud.CatalogAdapter adapter = new Cloud.CatalogAdapter(list);
-        list.setAdapter(adapter);*/
+        final Cloud.CatalogAdapter adapter = new Cloud.CatalogAdapter(list);
+        adapter.setUser(username);
+        adapter.setPass(password);
+        list.setAdapter(adapter);
 
         list.setOnItemClickListener(new ListView.OnItemClickListener() {
 
@@ -72,8 +86,11 @@ public class AvailableGamesActivity extends DialogFragment {
         return dlg;
     }
 
-    public void onCreateGame(View view){
-        /*Intent intent = new Intent(getActivity(), ChessActivity.class);
-        startActivity(intent);*/
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

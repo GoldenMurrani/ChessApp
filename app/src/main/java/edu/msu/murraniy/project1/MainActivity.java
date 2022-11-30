@@ -188,6 +188,8 @@ public class MainActivity extends AppCompatActivity {
                         });
                     } else{
                         AvailableGamesActivity availableGames = new AvailableGamesActivity();
+                        availableGames.setUsername(username);
+                        availableGames.setPassword(password);
                         availableGames.show(getSupportFragmentManager(), "load");
                     }
                 } catch (Exception e) {
