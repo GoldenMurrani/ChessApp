@@ -16,6 +16,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 
 import edu.msu.murraniy.project1.Chess;
+import edu.msu.murraniy.project1.Cloud.Models.CheckTurn;
 import edu.msu.murraniy.project1.Cloud.Models.CreateUser;
 import edu.msu.murraniy.project1.Cloud.Models.Move;
 import edu.msu.murraniy.project1.Cloud.Models.ValidateUser;
@@ -33,6 +34,7 @@ public class Cloud {
     public static final String GETGAMESTATE_PATH = "chess-getgamestate.php";
     public static final String VALIDATEUSER_PATH = "chess-validateuser.php";
     public static final String MOVE_PATH = "chess-move.php";
+    public static final String CHECKTURN_PATH = "chess-checkturn.php";
     private static final String UTF8 = "UTF-8";
 
     private static Retrofit retrofit = new Retrofit.Builder()
@@ -144,6 +146,35 @@ public class Cloud {
         }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
             Log.e("Move", "Runtime Exception: " + e.getMessage());
             return false;
+        }
+    }
+
+    // Gets info about the game in order to check turn and update board if needed
+    public Chess.TurnInfo checkTurn(int gameId) {
+        ChessService service = retrofit.create(ChessService.class);
+
+        try{
+            Response<CheckTurn> response = service.checkTurn(MAGIC, gameId).execute();
+
+            if(response.isSuccessful()){
+                CheckTurn result = response.body();
+
+                if (result.getStatus() != null && result.getStatus().equals("yes")) {
+                    return new Chess.TurnInfo(result.getPiece(), result.getX(), result.getY(), result.getTurn());
+                }
+                Log.e("CheckTurn", "Failed to validate, message = '" + result.getMessage() + "'");
+                return null;
+
+            }
+            Log.e("CheckTurn", "Failed to create, message = '" + response.code() + "'");
+            return null;
+
+        }catch (IOException e){
+            Log.e("CheckTurn", "Exception occurred while trying to check turn!", e);
+            return null;
+        }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
+            Log.e("CheckTurn", "Runtime Exception: " + e.getMessage());
+            return null;
         }
     }
 }

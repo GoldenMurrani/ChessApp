@@ -88,6 +88,21 @@ public class Chess {
     // The game ID for multiplayer purposes
     private int gameId;
 
+    //
+    public static class TurnInfo {
+        public TurnInfo(int pieceID, int pieceX, int pieceY, int turn) {
+            this.pieceID = pieceID;
+            this.pieceX = pieceX;
+            this.pieceY = pieceY;
+            this.turn = turn;
+        }
+
+        public int pieceID;
+        public int pieceX;
+        public int pieceY;
+        public int turn;
+    }
+
 
     public Chess(Context context, ChessView view) {
         parentView = view;
@@ -498,6 +513,11 @@ public class Chess {
                 }
             }
         }).start();
+    }
+
+    // Gameplay loop that checks the database periodically
+    public void gameplayLoop() {
+
     }
 
 }
