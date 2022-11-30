@@ -43,4 +43,5 @@
     <string name="catalog_fail">Failed to Load Games</string>
     <string name="new_game">Create A New Game</string>
     <string name="newgame_fail">Failed to Create A New Game</string>
+    <string name="wait">Waiting for player to join...</string>
 </resources>

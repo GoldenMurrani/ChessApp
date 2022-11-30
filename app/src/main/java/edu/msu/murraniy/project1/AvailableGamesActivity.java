@@ -50,11 +50,11 @@ public class AvailableGamesActivity extends DialogFragment {
                     @Override
                     public void run() {
                         Cloud cloud = new Cloud();
-                        final boolean result;
+                        final int gameID;
                         try {
-                            result = cloud.createGame(username, password);
+                            gameID = cloud.createGame(username, password);
 
-                            if(!result) {
+                            if(gameID != -1) {
                                 /*
                                  * If game creation fails, display a toast
                                  */
@@ -68,6 +68,9 @@ public class AvailableGamesActivity extends DialogFragment {
                                     }
                                 });
                             } else{
+                                WaitActivity waitActivity = new WaitActivity();
+                                waitActivity.setGameID(gameID);
+                                waitActivity.show(getParentFragmentManager(), "wait");
                             }
                         } catch (Exception e) {
                             // Error condition! Something went wrong

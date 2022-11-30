@@ -20,6 +20,7 @@ import edu.msu.murraniy.project1.Cloud.Models.CheckTurn;
 import edu.msu.murraniy.project1.Cloud.Models.Catalog;
 import edu.msu.murraniy.project1.Cloud.Models.CreateGame;
 import edu.msu.murraniy.project1.Cloud.Models.CreateUser;
+import edu.msu.murraniy.project1.Cloud.Models.DeleteGame;
 import edu.msu.murraniy.project1.Cloud.Models.Game;
 import edu.msu.murraniy.project1.Cloud.Models.Move;
 import edu.msu.murraniy.project1.Cloud.Models.ValidateUser;
@@ -49,15 +50,15 @@ public class Cloud {
             .addConverterFactory(SimpleXmlConverterFactory.create())
             .build();
 
-    public boolean createGame(String username, String password){
+    public int createGame(String username, String password){
         username = username.trim();
         password = password.trim();
 
         if(username.length() == 0){
-            return false;
+            return -1;
         }
         if(password.length() == 0){
-            return false;
+            return -1;
         }
 
         ChessService service = retrofit.create(ChessService.class);
@@ -69,21 +70,21 @@ public class Cloud {
                 CreateGame result = response.body();
 
                 if (result.getStatus() != null && result.getStatus().equals("yes")) {
-                    return true;
+                    return result.getGame();
                 }
                 Log.e("CreateGame", "Failed to create, message = '" + result.getMessage() + "'");
-                return false;
+                return -1;
 
             }
             Log.e("CreateGame", "Failed to create, message = '" + response.code() + "'");
-            return false;
+            return -1;
 
         }catch (IOException e){
             Log.e("CreateGame", "Exception occurred while trying to create a new game!", e);
-            return false;
+            return -1;
         }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
             Log.e("CreateGame", "Runtime Exception: " + e.getMessage());
-            return false;
+            return -1;
         }
     }
 
@@ -221,6 +222,35 @@ public class Cloud {
         }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
             Log.e("CheckTurn", "Runtime Exception: " + e.getMessage());
             return null;
+        }
+    }
+
+    // Deletes a game
+    public boolean deleteGame(int gameId) {
+        ChessService service = retrofit.create(ChessService.class);
+
+        try{
+            Response<DeleteGame> response = service.deleteGame(MAGIC, gameId).execute();
+
+            if(response.isSuccessful()){
+                DeleteGame result = response.body();
+
+                if (result.getStatus() != null && result.getStatus().equals("yes")) {
+                    return true;
+                }
+                Log.e("DeleteGame", "Failed to validate, message = '" + result.getMessage() + "'");
+                return false;
+
+            }
+            Log.e("DeleteGame", "Failed to create, message = '" + response.code() + "'");
+            return false;
+
+        }catch (IOException e){
+            Log.e("DeleteGame", "Exception occurred while trying to delete game!", e);
+            return false;
+        }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
+            Log.e("DeleteGame", "Runtime Exception: " + e.getMessage());
+            return false;
         }
     }
 
