@@ -2,10 +2,12 @@ package edu.msu.murraniy.project1;
 
 import androidx.fragment.app.DialogFragment;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,5 +70,10 @@ public class AvailableGamesActivity extends DialogFragment {
 
         dlg = builder.create();
         return dlg;
+    }
+
+    public void onCreateGame(View view){
+        /*Intent intent = new Intent(getActivity(), ChessActivity.class);
+        startActivity(intent);*/
     }
 }

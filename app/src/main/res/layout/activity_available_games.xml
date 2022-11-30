@@ -5,18 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".AvailableGamesActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".AvailableGamesActivity">
 
 
     <ListView
         android:id="@+id/listGames"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_weight="1"/>
+        android:layout_alignParentRight="true"
+        android:layout_weight="1" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
+        android:text="@string/new_game" />
 
 
 </LinearLayout>

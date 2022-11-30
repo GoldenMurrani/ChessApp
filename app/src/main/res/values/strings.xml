@@ -40,4 +40,5 @@
     <string name="shoosegame">Choose or Create a Game to Join</string>
     <string name="availgames">Available Games</string>
     <string name="dummy">Dummy String</string>
+    <string name="new_game">Create A New Game</string>
 </resources>
