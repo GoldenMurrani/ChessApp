@@ -124,7 +124,6 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
 //                loadDlg.show(getActivity().getSupportFragmentManager(), "loading");
 
             }
-
         });
 
 

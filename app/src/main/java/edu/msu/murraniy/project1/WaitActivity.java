@@ -51,6 +51,7 @@ public class WaitActivity extends DialogFragment {
         builder.setTitle(R.string.wait);
 
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            // Destroy the game if the host decides to stop waiting
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 cancel = true;
@@ -75,36 +76,16 @@ public class WaitActivity extends DialogFragment {
             }
         });
 
-        // Destroy the game if the host decides to stop waiting
+
         /*builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
-                cancel = true;
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Cloud cloud = new Cloud();
-                        final boolean result;
-                        try {
-                            result = cloud.deleteGame(gameID);
-
-                            if (!result) {
-                                Log.e("StopWait", "Game failed to be deleted!");
-                            }
-
-                        } catch (Exception e) {
-                            // Error condition! Something went wrong
-                            Log.e("StopWait", "Something went wrong canceling wait", e);
-                        }
-                    }
-                }).start();
-
             }
         });*/
 
 
         // Thread to periodically check for if other player joined
-        /*new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -115,7 +96,6 @@ public class WaitActivity extends DialogFragment {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-
                             // Create a cloud object and get the XML
                             Cloud cloud = new Cloud();
                             player2 = cloud.checkJoin(gameID);
@@ -133,7 +113,7 @@ public class WaitActivity extends DialogFragment {
                 }
 
             }
-        }).start();*/
+        }).start();
 
 
         dlg = builder.create();

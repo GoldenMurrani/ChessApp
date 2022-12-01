@@ -15,7 +15,7 @@ Responsiblity: setting up website/database and writing mostly related functions 
 
 
 
-Member 2: 
+Member 2:
 
 Responsiblity:
 
