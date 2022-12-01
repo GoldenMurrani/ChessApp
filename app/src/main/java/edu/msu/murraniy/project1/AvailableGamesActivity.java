@@ -1,5 +1,6 @@
 package edu.msu.murraniy.project1;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import android.annotation.SuppressLint;
@@ -28,8 +29,41 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
     private volatile String username;
     private volatile String password;
 
+    private final static String NAMES = "AvailableGamesActivity.Names";
+
+    @Override
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
+
+        if(bundle != null) {
+            // We have saved state
+            loadInstanceState(bundle);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+
+        String [] names = new String[2];
+        names[0] = username;
+        names[1] = password;
+        bundle.putStringArray(NAMES, names);
+    }
+
+    /**
+     * Read the player names from a bundle
+     * @param bundle The bundle we save to
+     */
+    public void loadInstanceState(Bundle bundle) {
+        String [] names = bundle.getStringArray(NAMES);
+        username = names[0];
+        password = names[1];
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         final MainActivity activity = (MainActivity) getActivity();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
