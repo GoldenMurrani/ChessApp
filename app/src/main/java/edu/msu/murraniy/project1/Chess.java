@@ -312,7 +312,7 @@ public class Chess {
 
             case MotionEvent.ACTION_MOVE:
                 // If we are dragging, move the piece and force a redraw
-                if(dragging != null && dragging.getTeam() == turn) {
+                if(dragging != null && dragging.getTeam() == turn && turn == side) {
                     dragging.move(relX - lastRelX, relY - lastRelY);
                     lastRelX = relX;
                     lastRelY = relY;
