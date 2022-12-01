@@ -33,7 +33,7 @@ Responsiblity: Updated some documentation, helped with create new game and remem
 
 
 
-Member 5 (if applicable): Nathaniel Ferry
+Member 5 : Nathaniel Ferry
 
 Responsiblity: Fixed snapping of the pieces, creating piece moving database functionality, created functionality between clicking on a game / waiting for a game and being brought into the game
 
