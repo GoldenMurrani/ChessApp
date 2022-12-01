@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,8 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final MainActivity activity = (MainActivity) getActivity();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle(R.string.availgames);
@@ -70,12 +73,12 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
                                     }
                                 });
                             } else{
-                                dlg.dismiss();
-
                                 WaitActivity waitActivity = new WaitActivity();
                                 waitActivity.setGameID(gameID);
                                 waitActivity.setPlayer1(username);
-                                waitActivity.show(getActivity().getSupportFragmentManager(), "wait");
+                                waitActivity.show(activity.getSupportFragmentManager(), "wait");
+
+                                dlg.dismiss();
                             }
                         } catch (Exception e) {
                             // Error condition! Something went wrong
@@ -113,6 +116,11 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
 
                 // Dismiss the dialog box
                 dlg.dismiss();
+
+                WaitActivity waitActivity = new WaitActivity();
+                /*waitActivity.setGameID(gameID);*/
+                waitActivity.setPlayer1(username);
+                waitActivity.show(activity.getSupportFragmentManager(), "wait");
 
 //                LoadingDlg loadDlg = new LoadingDlg();
 //                loadDlg.setCatId(catId);

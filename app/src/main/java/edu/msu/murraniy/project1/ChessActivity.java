@@ -220,8 +220,6 @@ public class ChessActivity extends AppCompatActivity {
                     tv.setText(R.string.bishop);
                     break;
             }
-
-
             return view;
         }
     }
