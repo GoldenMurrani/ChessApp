@@ -142,7 +142,9 @@ public class ChessActivity extends AppCompatActivity {
     }
 
     public void onDone(View view){
-        chessView.changeChessTurn();
+        if(playerTurn == player){
+            chessView.changeChessTurn();
+        }
     }
 
     public void onResign(View view){
