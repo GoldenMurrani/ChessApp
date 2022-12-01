@@ -59,12 +59,12 @@ public class ChessActivity extends AppCompatActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_chess);
 
-        Bundle temp = getIntent().getExtras();
+/*        Bundle temp = getIntent().getExtras();
         playerOnen = temp.getString("player_name_1");
         playerTwon = temp.getString("player_name_2");
 
         gameID = temp.getInt("gameID");
-        player = temp.getInt("player");
+        player = temp.getInt("player");*/
 
 
         chessView = (ChessView)this.findViewById(R.id.chessView);

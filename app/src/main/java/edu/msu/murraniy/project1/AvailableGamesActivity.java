@@ -115,13 +115,10 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
                 /*String catId = adapter.getId(position);*/
 
                 // Dismiss the dialog box
+                Intent intent = new Intent(getActivity(), ChessActivity.class);
+                startActivity(intent);
+
                 dlg.dismiss();
-
-                WaitActivity waitActivity = new WaitActivity();
-                /*waitActivity.setGameID(gameID);*/
-                waitActivity.setPlayer1(username);
-                waitActivity.show(activity.getSupportFragmentManager(), "wait");
-
 //                LoadingDlg loadDlg = new LoadingDlg();
 //                loadDlg.setCatId(catId);
 //                loadDlg.show(getActivity().getSupportFragmentManager(), "loading");
