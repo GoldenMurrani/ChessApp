@@ -164,7 +164,6 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
                     }
                 }).start();
             }
-
         });
 
 
