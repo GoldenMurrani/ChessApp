@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import edu.msu.murraniy.project1.Cloud.Cloud;
+import edu.msu.murraniy.project1.Cloud.Models.Game;
 
 public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment {
 
@@ -108,16 +110,50 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                // Get the id of the one we want to load
-                /*String catId = adapter.getId(position);*/
+                // Get the game of the one we selected
+                Game selectedGame = (Game)adapter.getItem(position);
 
                 // Dismiss the dialog box
                 dlg.dismiss();
 
-//                LoadingDlg loadDlg = new LoadingDlg();
-//                loadDlg.setCatId(catId);
-//                loadDlg.show(getActivity().getSupportFragmentManager(), "loading");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final boolean result;
+                        Cloud cloud = new Cloud();
+                        try {
+                            result = cloud.joinGame(Integer.parseInt(selectedGame.getId()),username);
 
+                            if(!result) {
+                                /*
+                                 * If game join fails, display a toast
+                                 */
+                                view.post(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getView().getContext(),
+                                                R.string.joinfail,
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else{
+                                dlg.dismiss();
+
+                                startChess(selectedGame.getName(), username, Integer.parseInt(selectedGame.getId()), 2);
+                            }
+                        } catch (Exception e) {
+                            // Error condition! Something went wrong
+                            Log.e("JoinGame", "Something went wrong when joining a game", e);
+                            view.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(view.getContext(), R.string.joinfail, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                }).start();
             }
 
         });
@@ -133,5 +169,19 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void startChess(String player1, String player2, int gameID, int player) {
+        Intent intent = new Intent(getActivity(), ChessActivity.class);
+
+        Bundle bundle_chess = new Bundle();
+        bundle_chess.putString("player_name_1", player1);
+        bundle_chess.putString("player_name_2", player2);
+        bundle_chess.putInt("gameID", gameID);
+        bundle_chess.putInt("player", player);
+
+        intent.putExtras(bundle_chess);
+
+        startActivity(intent);
     }
 }

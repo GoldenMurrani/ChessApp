@@ -70,6 +70,7 @@ public class ChessActivity extends AppCompatActivity {
         chessView = (ChessView)this.findViewById(R.id.chessView);
         chessView.setActivity(this);
         chessView.setChessGameId(gameID);
+        chessView.setChessSide(player);
 
         tv1 = (TextView)findViewById(R.id.playerText);
 

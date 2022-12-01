@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -112,7 +113,7 @@ public class WaitActivity extends DialogFragment {
                 }
                 // Starting process of moving into game
                 if (start) {
-                    ((MainActivity) getActivity()).startChess(player1, player2, gameID, 1);
+                    startChess(player1, player2, gameID, 1);
                 }
 
             }
@@ -126,6 +127,20 @@ public class WaitActivity extends DialogFragment {
 
     public void setGameID(int gameID) {
         this.gameID = gameID;
+    }
+
+    public void startChess(String player1, String player2, int gameID, int player) {
+        Intent intent = new Intent(getActivity(), ChessActivity.class);
+
+        Bundle bundle_chess = new Bundle();
+        bundle_chess.putString("player_name_1", player1);
+        bundle_chess.putString("player_name_2", player2);
+        bundle_chess.putInt("gameID", gameID);
+        bundle_chess.putInt("player", player);
+
+        intent.putExtras(bundle_chess);
+
+        startActivity(intent);
     }
 
 }

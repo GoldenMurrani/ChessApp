@@ -7,6 +7,7 @@ import edu.msu.murraniy.project1.Cloud.Models.CreateGame;
 import edu.msu.murraniy.project1.Cloud.Models.CreateUser;
 
 import edu.msu.murraniy.project1.Cloud.Models.DeleteGame;
+import edu.msu.murraniy.project1.Cloud.Models.JoinGame;
 import edu.msu.murraniy.project1.Cloud.Models.Move;
 import edu.msu.murraniy.project1.Cloud.Models.ValidateUser;
 import retrofit2.Call;
@@ -22,6 +23,7 @@ import static edu.msu.murraniy.project1.Cloud.Cloud.CREATEGAME_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.CREATEUSER_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.DELETEGAME_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.GETGAMESTATE_PATH;
+import static edu.msu.murraniy.project1.Cloud.Cloud.JOINGAME_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.MOVE_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.VALIDATEUSER_PATH;
 import static edu.msu.murraniy.project1.Cloud.Cloud.GETGAMES_PATH;
@@ -69,6 +71,13 @@ public interface ChessService {
     Call<CheckJoin> checkJoin(
             @Query("magic") String magic,
             @Query("game") int gameId
+    );
+
+    @POST(JOINGAME_PATH)
+    Call<JoinGame> joinGame(
+            @Query("magic") String magic,
+            @Query("game") int gameId,
+            @Query("user") String userId
     );
 
     @POST(DELETEGAME_PATH)

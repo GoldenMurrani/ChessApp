@@ -88,6 +88,16 @@ public class Chess {
     // The game ID for multiplayer purposes
     private int gameId;
     public void setGameId(int gameId) { this.gameId = gameId; }
+    //which side is this player on?
+    private Team side;
+    public void setSide( int side) {
+        if (side == 1)  {
+            this.side = Team.WHITE;
+        }
+        else {
+            this.side = Team.BLACK;
+        }
+    }
 
     //
     public static class TurnInfo {

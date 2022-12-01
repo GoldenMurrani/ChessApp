@@ -44,4 +44,5 @@
     <string name="new_game">Create A New Game</string>
     <string name="newgame_fail">Failed to Create A New Game</string>
     <string name="wait">Waiting for player to join...</string>
+    <string name="joinfail">Failed to join the game!</string>
 </resources>

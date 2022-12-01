@@ -114,5 +114,6 @@ public class ChessView extends View {
     }
 
     public void setChessGameId(int gameId) { this.chess.setGameId(gameId);}
+    public void setChessSide(int side) { this.chess.setSide(side); }
 
 }

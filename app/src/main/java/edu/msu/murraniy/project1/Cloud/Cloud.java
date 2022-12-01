@@ -23,6 +23,7 @@ import edu.msu.murraniy.project1.Cloud.Models.CreateGame;
 import edu.msu.murraniy.project1.Cloud.Models.CreateUser;
 import edu.msu.murraniy.project1.Cloud.Models.DeleteGame;
 import edu.msu.murraniy.project1.Cloud.Models.Game;
+import edu.msu.murraniy.project1.Cloud.Models.JoinGame;
 import edu.msu.murraniy.project1.Cloud.Models.Move;
 import edu.msu.murraniy.project1.Cloud.Models.ValidateUser;
 import edu.msu.murraniy.project1.R;
@@ -45,6 +46,7 @@ public class Cloud {
     public static final String VALIDATEUSER_PATH = "chess-validateuser.php";
     public static final String MOVE_PATH = "chess-move.php";
     public static final String CHECKTURN_PATH = "chess-checkturn.php";
+    public static final String JOINGAME_PATH = "chess-joingame.php";
     private static final String UTF8 = "UTF-8";
 
     private static Retrofit retrofit = new Retrofit.Builder()
@@ -283,6 +285,35 @@ public class Cloud {
             return false;
         }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
             Log.e("DeleteGame", "Runtime Exception: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Joins a game / updates it with player 2 ID
+    public boolean joinGame(int gameId, String player2) {
+        ChessService service = retrofit.create(ChessService.class);
+
+        try{
+            Response<JoinGame> response = service.joinGame(MAGIC, gameId, player2).execute();
+
+            if(response.isSuccessful()){
+                JoinGame result = response.body();
+
+                if (result.getStatus() != null && result.getStatus().equals("yes")) {
+                    return true;
+                }
+                Log.e("JoinGame", "Failed to validate, message = '" + result.getMessage() + "'");
+                return false;
+
+            }
+            Log.e("JoinGame", "Failed to create, message = '" + response.code() + "'");
+            return false;
+
+        }catch (IOException e){
+            Log.e("JoinGame", "Exception occurred while trying to join game!", e);
+            return false;
+        }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
+            Log.e("JoinGame", "Runtime Exception: " + e.getMessage());
             return false;
         }
     }
