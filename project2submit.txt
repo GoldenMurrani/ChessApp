@@ -15,9 +15,9 @@ Responsiblity: setting up website/database and writing mostly related functions 
 
 
 
-Member 2: 
+Member 2: Yousif Murrani
 
-Responsiblity:
+Responsiblity: setting up logging in and displaying the list of available games functionality and design.
 
 
 
