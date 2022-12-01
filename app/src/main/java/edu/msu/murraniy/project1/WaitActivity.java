@@ -53,13 +53,30 @@ public class WaitActivity extends DialogFragment {
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                // Cancel just closes the dialog box
-                dialog.cancel();
+                cancel = true;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Cloud cloud = new Cloud();
+                        final boolean result;
+                        try {
+                            result = cloud.deleteGame(gameID);
+
+                            if (!result) {
+                                Log.e("StopWait", "Game failed to be deleted!");
+                            }
+
+                        } catch (Exception e) {
+                            // Error condition! Something went wrong
+                            Log.e("StopWait", "Something went wrong canceling wait", e);
+                        }
+                    }
+                }).start();
             }
         });
 
         // Destroy the game if the host decides to stop waiting
-        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        /*builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
                 cancel = true;
@@ -83,11 +100,11 @@ public class WaitActivity extends DialogFragment {
                 }).start();
 
             }
-        });
+        });*/
 
 
         // Thread to periodically check for if other player joined
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -116,8 +133,7 @@ public class WaitActivity extends DialogFragment {
                 }
 
             }
-        }).start();
-
+        }).start();*/
 
 
         dlg = builder.create();
