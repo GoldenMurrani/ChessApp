@@ -21,9 +21,10 @@ Responsiblity: setting up logging in and displaying the list of available games 
 
 
 
-Member 3: 
+Member 3: Naveen Kumanan
 
-Responsiblity:
+Responsiblity: Made create new game functionality. Worked on login functionality. Made remember me functionality.
+Fixed delete game functionality and fixed WaitActivity not oppening problem.
 
 
 
