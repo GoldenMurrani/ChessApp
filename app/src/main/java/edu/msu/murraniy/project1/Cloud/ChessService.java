@@ -73,11 +73,12 @@ public interface ChessService {
             @Query("game") int gameId
     );
 
+    @FormUrlEncoded
     @POST(JOINGAME_PATH)
     Call<JoinGame> joinGame(
-            @Query("magic") String magic,
-            @Query("game") int gameId,
-            @Query("user") String userId
+            @Field("magic") String magic,
+            @Field("game") int gameId,
+            @Field("user") String userId
     );
 
     @FormUrlEncoded
