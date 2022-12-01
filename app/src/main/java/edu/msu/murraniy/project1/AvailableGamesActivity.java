@@ -112,18 +112,7 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                // Get the id of the one we want to load
-                /*String catId = adapter.getId(position);*/
-
-                // Dismiss the dialog box
-                Intent intent = new Intent(getActivity(), ChessActivity.class);
-                startActivity(intent);
-
-                dlg.dismiss();
-//                LoadingDlg loadDlg = new LoadingDlg();
-//                loadDlg.setCatId(catId);
-//                loadDlg.show(getActivity().getSupportFragmentManager(), "loading");
-
+                Game selectedGame = (Game)adapter.getItem(position);
 
                 new Thread(new Runnable() {
                     @Override
