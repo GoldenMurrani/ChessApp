@@ -30,6 +30,8 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final MainActivity activity = (MainActivity) getActivity();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle(R.string.availgames);
@@ -110,11 +112,18 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                // Get the game of the one we selected
-                Game selectedGame = (Game)adapter.getItem(position);
+                // Get the id of the one we want to load
+                /*String catId = adapter.getId(position);*/
 
                 // Dismiss the dialog box
+                Intent intent = new Intent(getActivity(), ChessActivity.class);
+                startActivity(intent);
+
                 dlg.dismiss();
+//                LoadingDlg loadDlg = new LoadingDlg();
+//                loadDlg.setCatId(catId);
+//                loadDlg.show(getActivity().getSupportFragmentManager(), "loading");
+
 
                 new Thread(new Runnable() {
                     @Override

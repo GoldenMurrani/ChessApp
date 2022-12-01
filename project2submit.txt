@@ -1,0 +1,51 @@
+
+Project 2 Submission
+
+Group Name:   Team 14
+
+When you have completed the project, complete the following form and include it with your project. Include this file as a text file in the folder with your project when you turn it in. 
+
+For the Checkpoint, Describe a sequence of operations to create a new account and log onto the server:
+
+A functionality checklist will not be provided for the project. Treat this as you would a request from a client and identify what the client requires. 
+
+Member 1: Marshall Kroske
+
+Responsiblity: setting up website/database and writing mostly related functions and testing them
+
+
+
+Member 2: Yousif Murrani
+
+Responsiblity: setting up logging in and displaying the list of available games functionality and design.
+
+
+
+Member 3: 
+
+Responsiblity:
+
+
+
+Member 4 (if applicable): 
+
+Responsiblity:
+
+
+
+Member 5 (if applicable): 
+
+Responsiblity:
+
+
+
+Provide instructions on how to reach the first editing activity if the login button is not yet functional.
+
+User account the server-side communications is running under: kroskema
+
+Paths to all server-side scripts: https://webdev.cse.msu.edu/~kroskema/cse476/project2/
+
+Calls in the code to the server (provide a class name and function, or URL used for debugging): https://webdev.cse.msu.edu/~kroskema/cse476/project2/project2testing.php
+
+
+

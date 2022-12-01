@@ -80,10 +80,11 @@ public interface ChessService {
             @Query("user") String userId
     );
 
+    @FormUrlEncoded
     @POST(DELETEGAME_PATH)
     Call<DeleteGame> deleteGame(
-            @Query("magic") String magic,
-            @Query("game") int gameId
+            @Field("magic") String magic,
+            @Field("game") int gameId
     );
 
     @FormUrlEncoded
