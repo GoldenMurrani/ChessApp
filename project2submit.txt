@@ -28,9 +28,9 @@ Fixed delete game functionality and fixed WaitActivity not oppening problem.
 
 
 
-Member 4 (if applicable): 
+Member 4 (if applicable): Tommy Kocab
 
-Responsiblity:
+Responsiblity: Updated some documentation, helped with create new game and remember me functionality
 
 
 
