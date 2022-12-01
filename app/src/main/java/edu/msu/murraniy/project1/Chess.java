@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -528,6 +529,7 @@ public class Chess {
 
     // Gameplay loop that checks the database periodically
     public void gameplayLoop() {
+
 
     }
 

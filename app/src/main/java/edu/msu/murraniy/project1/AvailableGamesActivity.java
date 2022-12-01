@@ -126,18 +126,10 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
                                 /*
                                  * If game join fails, display a toast
                                  */
-                                view.post(new Runnable() {
 
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getView().getContext(),
-                                                R.string.joinfail,
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                });
                             } else{
-                                dlg.dismiss();
 
+                                dlg.dismiss();
                                 startChess(selectedGame.getName(), username, Integer.parseInt(selectedGame.getId()), 2);
                             }
                         } catch (Exception e) {
