@@ -175,9 +175,11 @@ public class Chess {
         marginX = (wid - chessSize) / 2;
         marginY = (hit - chessSize) / 2;
 
+        // Create the squares for the chess board
         if(squares.size() <= 0) {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
+                    // Add each square to the squares array, alternating the colors
                     Paint squarePaint = ((i + j) % 2) == 0 ? grayPaint : greenPaint;
                     squares.add(new BoardSquare(marginX + (chessSize * j) / 8.0f, marginY + (chessSize * i) / 8.0f,
                             marginX + (chessSize * (j + 1)) / 8.0f, marginY + (chessSize * (i + 1)) / 8.0f,
