@@ -234,7 +234,7 @@ public class Chess {
                 return onTouched(relX, relY);
 
             case MotionEvent.ACTION_UP:
-                if(dragging != null && dragging.getTeam() == turn) {
+                if(dragging != null && dragging.getTeam() == turn && turn == side) {
 //                    parentView.changeChessTurn();
 
 
@@ -334,6 +334,7 @@ public class Chess {
         // Check each piece to see if it has been hit
         // We do this in reverse order so we find the pieces in front
         for(int p=pieces.size()-1; p>=0;  p--) {
+
             if(pieces.get(p).hit(x, y, chessSize, scaleFactor)) {
                 // We hit a piece!
                 dragging = pieces.get(p);
