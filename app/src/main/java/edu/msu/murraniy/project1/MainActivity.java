@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private String password = "";
     private String new_username, new_password, new_passwordA;
     private String player2 = null;
+    private int game_id;
 
     /**
      * popupActive used to display popup on changing device orientation.
@@ -367,9 +368,19 @@ public class MainActivity extends AppCompatActivity {
         bundle_chess.putInt("gameID", gameID);
         bundle_chess.putInt("player", player);
 
+        game_id = gameID;
+
         intent.putExtras(bundle_chess);
 
         startActivity(intent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Cloud cloud = new Cloud();
+        cloud.deleteGame(game_id);
+
+    }
 }

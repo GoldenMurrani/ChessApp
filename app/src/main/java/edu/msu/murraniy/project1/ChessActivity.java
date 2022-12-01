@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import edu.msu.murraniy.project1.Cloud.Cloud;
+
 public class ChessActivity extends AppCompatActivity {
 
     /**
@@ -55,16 +57,25 @@ public class ChessActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Cloud cloud = new Cloud();
+        cloud.deleteGame(gameID);
+
+    }
+
+    @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_chess);
 
-/*        Bundle temp = getIntent().getExtras();
+        Bundle temp = getIntent().getExtras();
         playerOnen = temp.getString("player_name_1");
         playerTwon = temp.getString("player_name_2");
 
         gameID = temp.getInt("gameID");
-        player = temp.getInt("player");*/
+        player = temp.getInt("player");
 
 
         chessView = (ChessView)this.findViewById(R.id.chessView);
