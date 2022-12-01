@@ -113,7 +113,7 @@ public class AvailableGamesActivity extends androidx.fragment.app.DialogFragment
                                 WaitActivity waitActivity = new WaitActivity();
                                 waitActivity.setGameID(gameID);
                                 waitActivity.setPlayer1(username);
-                                waitActivity.show(getActivity().getSupportFragmentManager(), "wait");
+                                waitActivity.show(activity.getSupportFragmentManager(), "wait");
                             }
                         } catch (Exception e) {
                             // Error condition! Something went wrong
